@@ -1,0 +1,41 @@
+@import "./var";
+@import "mixin";
+
+@import "./common";
+@import "./vant-theme";
+
+a {
+	color: #000
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+html {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	height: 100%;
+}
+
+body {
+	overflow-x: hidden;
+	max-width: 700px;
+	height: 100%;
+	margin: 0 auto;
+	font-size: 14px;
+}
+
+.view-router {
+	background-color: $bg-color;
+	min-height: 100%;
+	padding-bottom: 50px;
+	box-sizing: border-box;
+}
+
+#app {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
