@@ -11,6 +11,7 @@
     "build:dll": "webpack --config build/webpack.dll.conf.js"
   },
   "dependencies": {
+    "@xkeshi/vue-countdown": "^0.5.0",
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "fastclick": "^1.0.6",
@@ -19,8 +20,7 @@
     "vant-css": "^0.11.13",
     "vue": "^2.5.0",
     "vue-router": "^3.0.0",
-    "vuex": "^3.0.1",
-    "weixin-js-sdk": "^1.2.0"
+    "vuelidation": "^1.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.2",
