@@ -1,5 +1,5 @@
 <template>
-	<van-tabbar v-model="active" style="z-index: 9999">
+	<van-tabbar v-model="active" style="z-index: 1999">
 		<van-tabbar-item 
 			v-for="(tab, index) in tabbar" 
 			:icon="tab.icon" 

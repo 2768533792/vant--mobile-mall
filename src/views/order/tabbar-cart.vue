@@ -187,7 +187,7 @@
 		@include one-border;
 		text-align: right;
 		padding: 10px;
-		font-size: $font-size-big;
+		font-size: $font-size-normal;
 		background-color: #fff;
 	}
 

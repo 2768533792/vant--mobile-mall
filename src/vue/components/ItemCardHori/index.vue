@@ -1,5 +1,5 @@
 <template>
-	<div class="item_card_H_wrap one_border" v-once @click="OnClick">
+	<div class="item_card_H_wrap one_border" @click="OnClick">
 		<div class="clearfix">
 			<div class="item_card_image float-l">
 				<div v-if="$slots.leftTopIcon" class="leftTopIcon">
@@ -9,24 +9,22 @@
 				<div v-if="$slots.mask" class="item_img_mask">
 					<slot name="mask"></slot>
 				</div>
-				<img :src="itemImg" alt="商品名称">
-				<div class="item_image_desc" v-if="itemImgDesc">{{itemImgDesc}}</div>
+				<img v-lazy="goods.pic_url">
+				<div class="item_image_desc">{{goodsStatusToMe}}</div>
 			</div>
 			
 			<div class="item_card_info">
 				<div class="item_card_name">
-					<van-tag plain type="danger" v-if="itemType">{{itemType}}</van-tag>
+					<van-tag plain type="danger" v-if="goods.is_haitao">海淘</van-tag>
 					<span v-if="$slots.icon" class="item_card_icon"><slot name="icon"></slot></span>
-					花王全型号特价限时抢购	花王全型号特价限时抢购
+					{{goods.name}}
 				</div>
 				
-				<div class="item_card_info_desc">
-					花王全型号特价限时抢购	花王全型号特价限时抢购花王全型号特价限时抢购	花王全型号特价限时抢购花王全型号特价限时抢购	花王全型号特价限时抢购花王全型号特价限时抢购	花王全型号特价限时抢购花王全型号特价限时抢购	花王全型号特价限时抢购
-				</div>
+				<div class="item_card_info_desc">{{goods.sell_point}}</div>
 				
-				<div class="item_card_price" v-if="price">
-					<span>{{price | yuan}}</span>
-					<span class="marketPrice" v-if="marketPrice">{{marketPrice | yuan}}</span>
+				<div class="item_card_price">
+					<span>{{goods.sales_price | yuan}}</span>
+					<span class="marketPrice" v-if="goods.market_price">{{goods.market_price | yuan}}</span>
 				</div>
 				
 				<div class="item_cart_footer" v-if="$slots.footer">
@@ -40,26 +38,10 @@
 
 
 <script>
+	import item_mix from '@/vue/mixin/item-card';
 	export default {
 		name: "item-card-hori",
-		props: {
-			itemType: {
-				type: String,
-				default: ""
-			},
-			itemImg: {
-				type: String,
-				default: ""
-			},
-			itemImgDesc: String,
-			price: [String, Number],
-			marketPrice: [String, Number],
-		},
-		methods:{
-			OnClick(){
-				this.$emit("click")
-			}
-		},
+		mixins: [item_mix],
 	}
 
 </script>
@@ -86,13 +68,13 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-			width: 50%;
+			max-width: 50%;
 			text-align: left;
 		}
 		.item_image_desc{
 			position: absolute;
 			bottom: 0;
-			background-color: rgba(244,133,145, .5);
+			background-color: rgba(244,133,145, .8);
 			width: 100%;
 			color: #fff;
 			font-size: 12px;
@@ -101,9 +83,10 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
+			z-index: 2;
 			transform: translate(-50%, -50%);
-			max-width: 80%;
-			max-height: 80%;
+			width: 70px;
+			height: 70px;
 			overflow: hidden;
 		}
 	}

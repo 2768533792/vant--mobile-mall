@@ -1,5 +1,14 @@
+//loading
+.van-loading--gradient-circle, .van-loading--spinner{
+	margin: 0 auto;
+}
+//tabber
 div.van-tabbar-item--active {
 	color: $red;
+}
+
+.van-tabbar-item__icon .van-icon{
+	font-size: 18px;
 }
 
 //按钮组
@@ -94,7 +103,9 @@ div.van-card__footer {
 	box-sizing: border-box;
 	padding-left: 20px;
 }
-
+i.van-cell__right-icon{
+	position: absolute;	
+}
 //商品详情
 .item_detail .van-picker__cancel {
 	color: #000;
@@ -113,10 +124,20 @@ div.van-card__footer {
 .tab-cart > .card-goods .van-card {
 	flex: 1;
 }
+.tab-cart .van-card:not(:first-child){
+	margin-top: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 
 //设置昵称
 .set_nickname .van-field__control{
 	text-align: right
+}
+
+//商品列表
+.item_list .van-tab--disabled{
+	color: #000;
 }
 //
 //.tab-cart > .card-goods .van-checkbox__input{

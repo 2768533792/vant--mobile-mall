@@ -41,7 +41,7 @@
 	import IsEmpty from "@/vue/components/IsEmpty/";
 	
 	import { Search, Loading } from 'vant';
-	import noMore from '@/vue/mixin/noMore';
+	import noMore from '@/vue/mixin/load-more';
 	
 	export default {
 		

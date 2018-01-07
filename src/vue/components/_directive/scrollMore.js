@@ -1,4 +1,5 @@
-import Utils from "@/assets/js/util";
+import { debounce } from "@/assets/js/util";
+import scroll from "@/assets/js/scroll";
 const CONTEXT = "$scrollArrow";
 const OFFSET = 30;
 
@@ -7,7 +8,7 @@ function startBind(el) {
 	const context = el[CONTEXT];
 
 	context.vm.$nextTick(function () {
-		if (Utils.isAttached(el)) {
+		if (scroll.isAttached(el)) {
 			doBindEvent.call(el[CONTEXT]);
 		}
 	});
@@ -21,7 +22,7 @@ function doBindEvent() {
 	}
 	this.el[CONTEXT].binded = true;
 
-	this.scrollEventListener = Utils.debounce(handleScrollEvent.bind(this), 100);
+	this.scrollEventListener = debounce(handleScrollEvent.bind(this), 100);
 	//  this.scrollEventTarget = this.el;
 
 	//  var disabledExpr = this.el.getAttribute('waterfall-disabled');
@@ -48,8 +49,8 @@ function handleScrollEvent() {
 	// 已被禁止的滚动处理
 //	if (this.disabled) return;
 	
-	const targetScrollLeft = Utils.getScrollLeft(element);
-	const targetVisibleWidth = Utils.getVisibleWidth(element);
+	const targetScrollLeft = scroll.getScrollLeft(element);
+	const targetVisibleWidth = scroll.getVisibleWidth(element);
 	// 滚动元素可视区域下边沿到滚动元素元素最顶上 距离
 	const targetRight = targetScrollLeft + targetVisibleWidth;
 	// 如果无元素高度，考虑为元素隐藏，直接返回

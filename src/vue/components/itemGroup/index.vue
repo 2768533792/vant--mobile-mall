@@ -1,33 +1,28 @@
 <template>
 	<div class="items_group">
-		<van-cell-group v-if="!!title">
+		<van-cell-group v-if="setting && !!setting.title">
 			<van-cell>
 				<slot v-if="$slots.title_right" name="title_right"></slot>
 				<template slot="icon">
-					<van-icon v-if="icon" :name="icon"/>
+					<van-icon v-if="setting.icon" :style="{color: setting.title_color}" :name="setting.icon"/>
 				</template>
 				<template slot="title">
-					<span class="group_title">{{title}}</span>
-					<slot name="titleDesc">
-						<span class="group_title_desc">{{titleDesc}}</span>
+					<span class="group_title" :style="{color: setting.title_color}">{{setting.title}}</span>
+					<slot name="title-desc">
+						<span class="group_title_desc">{{setting.title_desc}}</span>
 					</slot>
 				</template>
 			</van-cell>
 		</van-cell-group>
 		
-		<div class="group_banner" v-if="banner">
-			<img :src="banner" alt="海报" width="100%">
+		<div class="group_banner" v-if="setting && setting.banner">
+			<img v-lazy="setting.banner" alt="海报" width="100%">
 		</div>
 		
-		<div class="item_scroll_box" v-if="layout == 'H'">
+		<div class="item_scroll_box" v-if="setting.style">
 			<div class="item_scroll" v-scrollArrow="scrollMore">
 				<div class="item_scroll_wrap" :style="{width: scrollWidth}">
 					<slot></slot>
-<!--
-						<van-icon name="miaosha" style="font-size: 28px;color: #ff005e" slot="leftTopIcon" />
-						<van-icon name="clear" style="font-size: 60px;color: #000; opacity: .5" slot="mask" />
--->
-					
 				</div>
 			</div>
 			
@@ -38,7 +33,6 @@
 				<van-icon name="arrow-left" v-show="rightOver && isShowArrow" class="items_arrow left_arrow" />
 			</transition>
 		</div>
-		
 		<div v-else>
 			<slot></slot>
 		</div>
@@ -55,39 +49,20 @@
 	export default{
 		name: "item-group",
 		props: {
-			titleDesc: {
-				type: String,
-				default: ""
-			},
-			title: String,
-			titleColor: {
-				type: String,
-				default: "#000"
-			},
-			icon: {
-				type: String,
-				default: ""
-			},
-			banner: {
-				type: String
-			},
-			itemLen: {
-				type: Number
+			setting: {
+				type: Object,
+				default: () => ({})
 			},
 			col: {
 				type: Number,
 				default: 3
 			},
-			layout: {
-				type: String,
-				default: "H"
-			}
 		},
 		data(){
 			const clientW = document.body.clientWidth || document.documentElement.clientWidth,
 						col = this.col,
 						itemW = Math.floor(clientW / col),
-						itemsLen = this.itemLen
+						itemsLen = this.setting.item_len
 			return {
 				itemW,
 				scrollWidth: (itemW * itemsLen) + "px",
@@ -128,9 +103,6 @@
 		font-size: 12px;
 		color: $font-color-gray;
 	}
-	.group_banner{
-		margin-bottom: 10px;
-	}
 	.group_banner img{
 		max-height: 200px;
 		display: block;
@@ -139,6 +111,7 @@
 	.item_scroll_box{
 		position: relative;
 		width: 100%;
+		padding: 10px 0;
 	}
 	.item_scroll{
 		width: 100%;

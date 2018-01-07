@@ -2,14 +2,14 @@
 	<van-cell-group>
 		<van-cell>
 			<van-notice-bar
-				text="足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。"
+				:text="notice"
 				background="white"
 				leftIcon="./static/img/trumpet.png"
 				style="padding-left: 0"
 			/>
 		</van-cell>
-		<van-cell :title="address" icon="dingwei" isLink url="http://m.amap.com/navi/?dest=120.145409,30.238695&key=ab67b14d58d47912a9feb63ba862450c&destName=三潭印月"></van-cell>
-		<van-cell icon="phone">
+		<van-cell :title="address" icon="dingwei" isLink :url="mapSrc"></van-cell>
+		<van-cell icon="phone" isLink>
 			<template slot="title">
 				<a :href="'tel:' + mobile" class="store_mobile">{{mobile}}</a>
 			</template>
@@ -31,8 +31,26 @@
 			mobile: {
 				type: String,
 				required: true
-			}
+			},
+			notice: {
+				type: String,
+				default: ""
+			},
+			location: Object
 		},
+		
+		data(){
+			const location = this.location;
+			const MAP_PATH = `http://m.amap.com/navi/?dest=${location.lat},${location.lng}&key=ab67b14d58d47912a9feb63ba862450c&destName=${location.name}`;
+			return {
+				mapSrc: location ? MAP_PATH : '#'
+			}	
+		},
+		
+		created(){
+			
+		},
+		
 		components: {
 			[NoticeBar.name]: NoticeBar,
 		}

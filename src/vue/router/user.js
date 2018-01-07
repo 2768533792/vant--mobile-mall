@@ -19,6 +19,9 @@ const Tabbar = () => import(/* webpackChunkName: "Tabbar" */ '@/vue/components/T
 export default [{
 			path: "/user",
 			name: "user",
+			meta: {
+				keepAlive: true	
+			},
 			components: {default: tab_user, tabbar: Tabbar }
 	},{
 			path: "/user/collect",
@@ -56,6 +59,9 @@ export default [{
 	},{
 			path: "/user/information",
 			name: "user-information",
+			meta: {
+				login: true,	
+			},
 			component: UserInformation
 	},{
 			path: "/user/information/setbg",

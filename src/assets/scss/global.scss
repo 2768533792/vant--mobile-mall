@@ -3,7 +3,6 @@
 
 @import "./common";
 @import "./vant-theme";
-
 a {
 	color: #000
 }
@@ -38,4 +37,12 @@ body {
 	height: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
+}
+
+//商品详情页
+.item_desc{
+	img{
+		max-width: 100%;
+		display: block;
+	}
 }

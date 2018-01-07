@@ -10,6 +10,7 @@
 	import loginHeader from './login-header';
 	import loginRequest from './login-request';
 	import loginFooter from './login-footer';
+	
 	export default {
 		
 		components: {

@@ -4,16 +4,16 @@
 			<van-cell title="头像" class="cell_middle">
 				<van-uploader :afterRead="avatarAfterRead">
 					<div class="user_avatar_upload">
-						<img :src="avatarUrl + '?x-oss-process=image/resize,m_fill,h_50,w_50'" alt="你的头像" v-if="avatarUrl">
+						<img :src="avatar + '?x-oss-process=image/resize,m_fill,h_50,w_50'" alt="你的头像" v-if="avatar">
 						<van-icon name="camera_full" v-else></van-icon>
 					</div>
 				</van-uploader>
 			</van-cell>
 			<van-cell title="背景图" to="/user/information/setbg" isLink></van-cell>
-			<van-cell title="昵称" to="/user/information/setNickname" value="马家沟" isLink />
-			<van-cell title="性别" value="男" @click="showSex = true" isLink />
+			<van-cell title="昵称" to="/user/information/setNickname" :value="nick_name" isLink />
+			<van-cell title="性别" :value="genderText" @click="showSex = true" isLink />
 			<van-cell title="密码设置" to="/user/information/setPassword" isLink />
-			<van-cell title="手机号" to="/user/information/setMobile" value="13454193338" isLink></van-cell>
+			<van-cell title="手机号" to="/user/information/setMobile" :value="mobile" isLink></van-cell>
 		</van-cell-group>
 		
 		<van-popup v-model="showSex" position="bottom">
@@ -28,32 +28,62 @@
 </template>
 
 <script>
-	import { Popup, Uploader, Picker } from 'vant';
+	import { Uploader, Picker } from 'vant';
+	import {
+		USER_PROFILE
+	} from '@/api/user';
 	
 	export default {
 		
 		data(){
 			return {
 				sexColumns: [{
-					values: ["男", "女"],
+					values: ["保密", "男", "女"],
 					defaultIndex: 0
 				}],
 				showSex: false,
-				avatarUrl: ""
+				avatar: "",
+				nick_name: "",
+				gender: -1,
+				mobile: ""
 			}
+		},
+		
+		computed: {
+			genderText(){
+				const text = ["保密", "男", "女"];
+				return text[this.gender] || '';
+			}
+		},
+		
+		created(){
+			this.getUserInfo();
 		},
 		
 		methods: {
 			avatarAfterRead(file){
 				console.log(file);
 			},
-			onSexConfirm(){
-				console.log("性别");
-			}
+			onSexConfirm(value, index){
+				this.$reqPut(USER_PROFILE, {
+					gender: index[0]
+				}).then(res => {
+					this.gender = res.data.data.gender;
+					this.showSex = false;
+				})
+			},
+			getUserInfo(){
+				this.$reqGet(USER_PROFILE).then(res => {
+					const data = res.data.data;
+					this.avatar = data.avatar;
+					this.nick_name = data.nick_name;
+					this.gender = data.gender;
+					this.mobile = data.mobile;
+				})
+			},
 		},
 		
 		components: {
-			[Popup.name]: Popup,
 			[Uploader.name]: Uploader,
 			[Picker.name]: Picker,
 		}	

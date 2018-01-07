@@ -2,32 +2,21 @@
 	<div class="class_tree clearfix">
 		<ul class="class_tree_nav">
 			<li 
-				v-for="(item, index) in items"
+				v-for="(item ,index) in list"
+				:key="item.id"
 				:class="{active_nav: navActive == index}"
-				@click="navclick(index)">大牌奶粉</li>
+				@click="navclick(index)">
+				{{item.name}}
+			</li>
 		</ul>
 		<div class="class_tree_content">
-			<div class="class_tree_all">全部 <i class="van-icon van-icon-arrow"></i></div>
+			<div class="class_tree_all">
+				<span @click="allClick">全部 <i class="van-icon van-icon-arrow"></i></span>
+			</div>
 			<div class="class_tree_items_wrap clearfix">
-				<div @click="classClick(5254)">
-					<div class="class_tree_item_img"><img src="http://mm-test.img-cn-shanghai.aliyuncs.com/user/448929/bsizxG4Zw4.jpg" alt="固体奶粉"></div>
-					<div class="class_tree_item_name">固体奶粉</div>
-				</div>
-				<div @click="classClick(5254)">
-					<div class="class_tree_item_img"><img src="http://mm-test.img-cn-shanghai.aliyuncs.com/user/448929/bsizxG4Zw4.jpg" alt="固体奶粉"></div>
-					<div class="class_tree_item_name">固体奶粉</div>
-				</div>
-				<div @click="classClick(5254)">
-					<div class="class_tree_item_img"><img src="http://mm-test.img-cn-shanghai.aliyuncs.com/user/448929/bsizxG4Zw4.jpg" alt="固体奶粉"></div>
-					<div class="class_tree_item_name">固体奶粉</div>
-				</div>
-				<div @click="classClick(5254)">
-					<div class="class_tree_item_img"><img src="http://mm-test.img-cn-shanghai.aliyuncs.com/user/448929/bsizxG4Zw4.jpg" alt="固体奶粉"></div>
-					<div class="class_tree_item_name">固体奶粉</div>
-				</div>
-				<div @click="classClick(5254)">
-					<div class="class_tree_item_img"><img src="http://mm-test.img-cn-shanghai.aliyuncs.com/user/448929/bsizxG4Zw4.jpg" alt="固体奶粉"></div>
-					<div class="class_tree_item_name">固体奶粉</div>
+				<div @click="classClick(item.id)" v-for="item in goods">
+					<div class="class_tree_item_img"><img :src="item.pic_url" :alt="item.name"></div>
+					<div class="class_tree_item_name">{{item.name}}</div>
 				</div>
 			</div>
 		</div>
@@ -37,30 +26,45 @@
 <script>
 	export default{
 		name: "class-tree",
-		 model: {
+		
+		model: {
 			prop: 'activeIndex'
 		},
+		
 		props: {
 			activeIndex: {
 				type: Number,
 				default: 0
 			},
+			list: Array
 		},
+		
 		data(){
-			let navActive = this.activeIndex;
+			let navActive = this.activeIndex >= this.list.length ? 0 : this.activeIndex;
 			return {
-				items: new Array(8),
 				navActive,
 			}
 		},
+		
+		computed: {
+			goods(){
+				const list = this.list,
+					  navActive = this.navActive;
+				return (list && list.length) ? list[navActive].children : [];
+			}
+		},
+		
 		methods: {
+			allClick(){
+				this.$emit("all-click");
+			},
 			navclick(i){
 				this.navActive = i;
-				this.$emit("navClick", i);
+				this.$emit("nav-click", i);
 			},
 			classClick(id){
-				this.$emit("classClick", id);
-			}
+				this.$emit("class-click", id);
+			},
 		},
 	}
 </script>
@@ -74,13 +78,17 @@
 		overflow-x: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		overflow-y: auto;
+		overflow: hidden;
+		height: 100%;
+		padding-bottom: 42px;
+		box-sizing: border-box;
 	}
 	.class_tree_nav{
 		float: left;
 		width: 100px;
 		height: 100%;
-		background-color: $bg-color;
+		background-color: #f8f8f8;
+		overflow: scroll;
 		>li{
 			@include one-border;
 			height: 40px;
@@ -96,12 +104,16 @@
 	}
 	.class_tree_content{
 		margin-left: 100px;
+		height: 100%;
+		overflow-x: hidden;
+		overflow-y: scroll;
 		.class_tree_all{
 			text-align: right;
+			padding-right: 10px;
 			height: 40px;
 			line-height: 40px;
 			color: $font-color-gray;
-			font-size: $font-size-normal;
+			font-size: $font-size-small;
 		}
 		.van-icon-arrow{
 			font-size: $font-size-small;

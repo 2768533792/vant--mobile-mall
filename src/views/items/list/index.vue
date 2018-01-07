@@ -4,20 +4,20 @@
 		waterfall-disabled="disabled"
 		waterfall-offset="100">
 		
-		<form action="/search" class="fixedTop">
+		<form action="/search">
 			<van-search 
 			placeholder="请输入商品名称" 
 			v-model="searchVal"
-			@search="getItemList" 
+			@search="resetInit" 
 			showAction />
 		</form>
 		
-		<van-tabs @click="handleTabClick">
+		<van-tabs @click="handleTabClick" @disabled="handleTabClick">
 			<van-tab 
 				v-for="tab in tabsItem"
 			 	:title="tab.name" 
 				:key="tab.type" 
-				:disabled="tabDisabled">
+				:disabled="tab.sort === false">
 			</van-tab>
 		</van-tabs>
 		
@@ -28,7 +28,8 @@
 		>
 			<ul>
 				<li 
-					v-for="(li, i) in filterItem" 
+					v-for="(li, i) in filterItem"
+					:key="i"
 					@click="filterMethod(i)" 
 					:class="{filter_active: li.isActive}">
 						{{li.name}}
@@ -37,18 +38,13 @@
 			</ul>
 		</van-popup>
 		
-		<item-group
-			layout="V"
-			>
+		
+		<item-group>
 			<item-card-hori
-				v-for="(it, i) in items" 
-				item-img-desc="我收藏过"
-				item-img="http://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg"
-				price="12314"
-				marketPrice="122"
+				v-for="(item, i) in items" 
 				:key="i"
-				item-type="海淘"
-				@click="itemClick(i)"
+				:goods="item"
+				@click="itemClick(item.id)"
 			 />
 		</item-group>
 		
@@ -77,9 +73,10 @@
 	import ItemGroup from "@/vue/components/ItemGroup/";
 	import IsEmpty from "@/vue/components/IsEmpty/";
 	import ItemCardHori from '@/vue/components/ItemCardHori/';
-	import { Search, Loading, Popup, Tab, Tabs } from 'vant';
-	import mixin from '@/vue/mixin/noMore';
-	import util from "@/assets/js/util";
+	import { Search, Loading, Tab, Tabs } from 'vant';
+	import loadMore from '@/vue/mixin/load-more';
+	import { GOODS_SEARCH } from '@/api/goods';
+	
 	export default {
 		name: "Item-list",
 		props: {
@@ -89,108 +86,109 @@
 			},
 			itemClass: {
 				type: [String, Number],
-				default: 0
+				default: ""
 			}
 		},
 		
-		mixins: [mixin],
+		mixins: [loadMore],
 		
 		data(){
+			const shop_id = this.$util.getLocationParam("shop_id")
 			return {
-				tabDisabled: false,
+				shop_id,
 				tabsItem: [
-					{name: "默认", type: 10},
-					{name: "销量", type: 20},
-					{name: "最新", type: 30},
-					{name: "筛选", type: 40}
+					{name: "默认", sort: ""},
+					{name: "销量", sort: "sold_quantity"},
+					{name: "最新", sort: "created_at"},
+					{name: "筛选", sort: false}
 				],
-				tabActiveVal: 10,
+				sortVal: "",
+				is_haitao: 0,
 				filterItem: [{
 					name: "全部",
-					filterType: 50,
+					filterType: 2,
 					isActive: true,
 				},{
 					name: "店铺商品",
-					filterType: 60,
+					filterType: 0,
 					isActive: false,
 				},{
 					name: "海淘商品",
-					filterType: 70,
+					filterType: 1,
 					isActive: false,
 				}],
+				isHaitao: 2,
 				searchVal: "",
-				items: [],
 				filterItemShow: false,
 				showArrow: false
 			}
 		},
 		
 		activated(){
-//			this.items = [];
 			this.searchVal = this.keyword;
-//			this.getItemList();
+			this.resetInit();
+			this.eventListen();
+		},
+		
+		deactivated(){
+			document.getElementById('app').removeEventListener("scroll", this.scrollShowArrow);
 		},
 		
 		created(){
-			this.getItemList = util.debounce(this.getItemList, 200);
-			this.getItemList();
-		},
-		
-		mounted(){
-			let app = document.getElementById('app')
-			app.addEventListener("scroll", util.throttle(() => {
-					this.showArrow = app.scrollTop > 120
-			}, 100))
+			this.scrollShowArrow = this.$util.throttle(this.scrollShowArrow, 100);
 		},
 		
 		methods:{
-			getItemList(loadMore = false){
-				this.toggle(true);
-				console.log(this.tabActiveVal, this.itemClass, this.pages.currPage);
-				setTimeout(() => {
-					this.pages.currPage += 1;
-					this.items = !loadMore ? new Array(1) : [...this.items, ...new Array(2)];
-					this.toggle(false);
-					this.$nextTick(this.isNotPage);
-				}, 1000);
+			initData(loadMore = false){
+				return this.$reqGet(GOODS_SEARCH, {
+					q: this.searchVal,
+					shop_id: this.shop_id,
+					cid: this.itemClass,
+					'per-page': this.pages.perPage,
+					page: this.pages.currPage,
+					sort: this.sortVal,
+					is_haitao: this.isHaitao
+				},{
+					hideLoading: true
+				}).then(res => {
+					const { items, page } = res.data.data;
+					this.items.push(...items);
+					return page
+				})
 			},
-			loadMore() {
-				var vm = this;
-				if (this.pages.pageCount < this.pages.currPage) {
-					this.isNoMore();
-					return;
-				}
-				vm.toggle(true);
-				this.getItemList(true);
+			eventListen(){
+				document.getElementById('app').addEventListener("scroll", this.scrollShowArrow);
+			},
+			scrollShowArrow(){
+				this.showArrow = document.getElementById('app').scrollTop > 120;
 			},
 			handleTabClick(index){
 				if(index === 3){
 					this.filterItemShow = true;
 				}else{
-					this.tabActiveVal = this.tabsItem[index].type
-					this.getItemList();
-					this.clearItem()
+					const sortVal = this.tabsItem[index].sort;
+					if(sortVal !== this.sortVal){
+						this.sortVal = sortVal;
+						this.resetInit();
+					}
 				}
 			},
 			filterMethod(i){
-				this.clearItem();
-				this.filterItem = this.filterItem.map( (item, index) => {
+				this.filterItem.forEach( (item, index) => {
 					item.isActive = i === index
-					return item
 				})
+				const filterType = this.filterItem[i].filterType;
 				this.filterItemShow = false;
-				this.tabActiveVal = this.filterItem[i].filterType;
-				this.getItemList();
-			},
-			clearItem(){
-				this.items = [];
-				this.pages.currPage = 1;
+				if(this.isHaitao !== filterType){
+					this.isHaitao = filterType;
+					this.resetInit();
+				}
 			},
 			backTop(){
 				document.getElementById('app').scrollTop = 0;
 			},
-			itemClick(i){
-				this.$router.push({name: "detail", params: {itemId: i}})
+			itemClick(id){
+				this.$router.push({name: "detail", params: {itemId: id}})
 			},
 		},
 		
@@ -201,7 +199,6 @@
 			[Tabs.name]: Tabs,
 			[Search.name]: Search,
 			[Loading.name]: Loading,
-			[Popup.name]: Popup,
 			[IsEmpty.name]: IsEmpty,
 		}
 	}
@@ -222,9 +219,12 @@
 	
 	
 	.item_list{
+		height: 100%;
 		background-color: #fff;
-		padding-top: 50px;
 		box-sizing: border-box;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		padding-bottom: 0;
 	}
 	.fixedTop{
 		position: fixed;

@@ -1,5 +1,5 @@
 <template>
-	<div class="item_card_V_wrap">
+	<div class="item_card_V_wrap" @click="OnClick">
 		<div class="item_card_image">
 			<div v-if="$slots.leftTopIcon" class="leftTopIcon">
 				<slot name="leftTopIcon"></slot>
@@ -8,35 +8,24 @@
 			<div v-if="$slots.mask" class="item_img_mask">
 				<slot name="mask"></slot>
 			</div>
-			<img :src="itemImg" alt="商品名称">
-			<div class="item_image_desc" v-if="itemImgDesc">{{itemImgDesc}}</div>
+			<img v-lazy="goods.pic_url">
+			<div class="item_image_desc">{{goodsStatusToMe}}</div>
 		</div>
 		<div class="item_card_name">
-			<van-tag plain type="danger" v-if="itemType">{{itemType}}</van-tag>
+			<van-tag plain type="danger" v-if="goods.is_haitao">海淘</van-tag>
 			<span v-if="$slots.icon" class="item_card_icon"><slot name="icon"></slot></span>
-			花王全型号特价限时抢购
+			{{goods.name}}
 		</div>
-		<div class="item_card_price" v-if="price">{{price | yuan}}</div>
+		<div class="item_card_price">{{goods.sales_price | yuan}}</div>
 	</div>
 </template>
 
 
 <script>
-	import { Icon } from 'vant';
+	import item_mix from '@/vue/mixin/item-card';
 	export default {
 		name: "item-card-vert",
-		props: {
-			itemType: {
-				type: String,
-				default: ""
-			},
-			itemImg: {
-				type: String,
-				default: ""
-			},
-			itemImgDesc: String,
-			price: [String, Number]
-		}
+		mixins: [item_mix],
 	}
 
 </script>
@@ -61,7 +50,8 @@
 			position: absolute;
 			left: 0;
 			top: 0;
-			width: 50%;
+			z-index: 3;
+			max-width: 50%;
 			text-align: left;
 		}
 		img{
@@ -72,7 +62,7 @@
 		.item_image_desc{
 			position: absolute;
 			bottom: 0;
-			background-color: rgba(244,133,145, .5);
+			background-color: rgba(244,133,145, .8);
 			width: 100%;
 			color: #fff;
 			font-size: 12px;
@@ -81,9 +71,10 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
+			z-index: 2;
 			transform: translate(-50%, -50%);
-			max-width: 80%;
-			max-height: 80%;
+			width: 70px;
+			height: 70px;
 			overflow: hidden;
 		}
 	}

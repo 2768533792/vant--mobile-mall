@@ -1,79 +1,196 @@
 <template>
-	<div class="tab_home">
+	<div class="tab_home"
+		style="height: 100%; overflow: scroll;"
+		v-waterfall-lower="loadMore"
+		waterfall-disabled="disabled"
+		waterfall-offset="50">
 		<sign-board 
-			:boardUrl="shopInfo.banner"
+			v-once
+			v-if="shopInfo"
+			:boardUrl="shopInfo.avatar"
 			:storeName="shopInfo.shop_name"/>
 			
-		<shop-info-group 
+		<shop-info-group
+			v-once
+			v-if="shopInfo"
 			class="interval_bot"
+			:location="location"
 			:address="shopInfo.address"
+			:notice="shopInfo.notice"
 			:mobile="shopInfo.contact"/>
 		
 		<item-group
+			v-for="( group, key ) in itemGroup"
+			:key="key"
+			v-if="group"
 			class="interval_bot"
-			title="明星商品1"
-			titleDesc="分享购买得金豆"
-			icon="n4"
-			banner="https://mm-test.oss-cn-shanghai.aliyuncs.com/20171026/dsP6fXQ82Y.jpg"
-			:item-len="mingxing.items.length"
-			>
-			<item-card-vert
-				v-for="(it, i) in mingxing.items" 
-				item-img-desc="我收藏过"
-				item-img="http://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg"
-				price="12314"
-				item-type="海淘"
-				:key="i"
-			></item-card-vert>
+			:setting="group.setting"
+		>
+			<component 
+				v-for="(item, i) in group.items"
+				:goods="item"
+				:key="item.id"
+				:is="getStyle(group.setting.style)"
+				@click="toGoods(item)">
+				<div slot="mask" v-if="lootAll(item)">
+					<img src="../../assets/images/not_enough.png" alt="已抢光">
+				</div>
+				<div slot="leftTopIcon" v-if="item.as_status < 2"> 
+					<img :src="mxStatus(item.as_status)" alt="秒杀">
+				</div>
+			</component>
 		</item-group>
 		
-		<item-group
-			class="interval_bot"
-			title="店家推荐"
-			icon="good"
-			banner="https://mm-test.oss-cn-shanghai.aliyuncs.com/20171026/dsP6fXQ82Y.jpg"
-			layout="V"
-			:item-len="mingxing.items.length"
-			>
-			<item-card-hori
-				v-for="(it, i) in mingxing.items" 
-				item-img-desc="我收藏过"
-				item-img="http://img.yzcdn.cn/upload_files/2017/07/02/af5b9f44deaeb68000d7e4a711160c53.jpg"
-				price="12314"
-				marketPrice="122"
-				:key="i"
-				item-type="海淘"
-			 />
-		</item-group>
+		<van-loading 
+			type="gradient-circle" 
+			color="black" 
+			class="items_loading" 
+			v-show="isLoading"
+		/>
+		
+		<van-popup 
+			v-model="noMore" 
+			position="top" 
+			:overlay="false"
+		>没有更多了</van-popup>
+		
 	</div>
 </template>
 
 <script>
-	import { Swipe, SwipeItem } from 'vant';
+	import mx_be_to from "@/assets/images/mx_be_to.png";
+	import mx_start from "@/assets/images/mx_start.png";
 	import SignBoard from "./tabbar-home-sign-board";
 	import ShopInfoGroup from "./tabbar-home-shop-info";
 	import ItemGroup from "@/vue/components/ItemGroup/";
 	
 	import ItemCardVert from '@/vue/components/ItemCardVert/';
 	import ItemCardHori from '@/vue/components/ItemCardHori/';
+	import { HOME_module, ALL_GOODS } from '@/api/shop';
+	
+	import loadMore from '@/vue/mixin/load-more';
 	
 	export default {
+		mixins: [loadMore],
+		
 		data(){
+			const shop_id = this.$util.getLocationParam("shop_id")
 			return {
-				shopInfo: {
-					shop_name: "乐宝妈咪馆",
-					banner: "http://mm-test.img-cn-shanghai.aliyuncs.com/shop/448929/RmHJ6XZyT8.jpg",
-					address: "文一路花蒋路交叉口",
-					contact: "13454193338"
+				shop_id,
+				shopInfo: null,
+				itemGroup: {
+					mx_goods: null,
+					activity_seckill: null,
+					shop_recommend: null,
+					goods: null,
 				},
-				mingxing: {
-					items: new Array(8)
-				}
+				mx_be_to,
+				mx_start,
+				isLoading: false,
 			}
 		},
+		
+		computed: {
+			location() {
+				const shopInfo = this.shopInfo;
+				let local = {name: shopInfo.shop_name, lat: shopInfo.lat, lng: shopInfo.lng};
+				return (local.lat && local.lng) ? local : null;
+			}
+		},
+		
+		created() {
+			this.initViews();
+		},
+		
+		methods: {
+			initViews(){
+				this.$reqGet(HOME_module, {
+					shop_id: this.shop_id,
+					'per-page': this.pages.perPage,
+					page: 1
+				}).then(res => {
+					let {shop_info, page} = res.data.data;
+					let { mx_goods, shop_recommend, activity_seckill, goods } = this.decorate(res.data.data);
+					this.shopInfo = shop_info;
+					this.itemGroup.mx_goods = mx_goods;
+					this.itemGroup.shop_recommend = shop_recommend;
+					this.itemGroup.activity_seckill = activity_seckill;
+					this.itemGroup.goods = goods;
+					this.setPages(page);
+				})
+			},
+			
+			initData(){
+				return this.$reqGet(ALL_GOODS, {
+					shop_id: this.shop_id,
+					'per-page': this.pages.perPage,
+					page: this.pages.currPage
+				}, {
+					hideLoading: true
+				}).then(res => {
+					const { items, page } = res.data.data
+					this.itemGroup.goods && this.itemGroup.goods.items.push(...items);
+					return page
+				})
+			},
+			
+			toGoods(item){
+				//如果是秒杀商品, 并且已经抢光
+				if(this.lootAll(item)){
+					this.$dialog.alert({message: '该秒杀商品已抢光，看看别的吧！'})
+					return;
+				}else{
+					this.$router.push({path: `/items/detail/${item.id}`})
+				}
+			},
+			
+			groupIcon(key){
+				const iconGroup = {
+					activity_seckill: "naozhong",
+					goods: "list",
+					mx_goods: "n4",
+					shop_recommend: "good"
+				}
+				return iconGroup[key] || ""
+			},
+			
+			getStyle(style){
+				return style ? 'item-card-vert' : 'item-card-hori'
+			},
+			
+			decorate({mx_goods, shop_recommend, activity_seckill, goods}){
+				if(mx_goods){
+					mx_goods.setting.icon = "n4";
+					mx_goods.setting.title_desc = "分享得金豆";
+					mx_goods.setting.title_color = "#db3d3c";
+					mx_goods.setting.item_len = mx_goods.items.length;
+				}
+				if(shop_recommend){
+					shop_recommend.setting.icon = "good";
+					shop_recommend.setting.item_len = shop_recommend.items.length;
+				}
+				if(activity_seckill){
+					activity_seckill.setting.icon = "naozhong";
+					activity_seckill.setting.title_color = "#db3d3c";
+					activity_seckill.setting.item_len = activity_seckill.items.length;
+				}
+				if(goods){
+					goods.setting.icon = "list";
+					goods.setting.item_len = goods.items.length;
+				}
+				return { mx_goods, shop_recommend, activity_seckill, goods }
+			},
+			
+			lootAll(item){
+				return typeof item.as_status != "undefined" && item.sold_num == item.total
+			},
+			
+			mxStatus(as_status){
+				return as_status ? this.mx_start : this.mx_be_to;
+			}
+		},
+		
 		components: {
-			[Swipe.name]: Swipe,
-			[SwipeItem.name]: SwipeItem,
 			[SignBoard.name]: SignBoard,
 			[ShopInfoGroup.name]: ShopInfoGroup,
 			[ItemGroup.name]: ItemGroup,

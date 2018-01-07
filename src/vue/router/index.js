@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import {Toast} from 'vant';
 import Router from 'vue-router';
 
 import home from './home';
@@ -9,6 +10,26 @@ import login from './login';
 
 Vue.use(Router);
 
-export default new Router({
-		routes:[...home, ...items, ...user, ...order, ...login]
+let RouterModel = new Router({
+	routes:[...home, ...items, ...user, ...order, ...login]
 })
+
+
+RouterModel.beforeEach((to, from, next) => {
+	Toast.loading({ mask: true });
+	
+	const { Authorization, user_id} = Vue.prototype.$util.getLocalStorage('Authorization', 'user_id')
+	if(!Authorization && !user_id){
+		if(to.meta.login){
+			RouterModel.push({name: 'login', query: {redirect: to.name}});
+			return;
+		}
+	}
+	next();
+})
+
+RouterModel.afterEach((to, from) => {
+	Toast.clear();
+})
+
+export default RouterModel;

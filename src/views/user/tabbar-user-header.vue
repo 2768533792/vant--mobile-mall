@@ -1,19 +1,52 @@
 <template>
-	<div class="user_header">
+	<div class="user_header" :style="{backgroundImage: `url(${background_image})`}">
 		<van-icon name="set" class="user_set" @click="toSetting" />
 		<div class="user_avatar">
-			<img src="../../assets/images/avatar_default.png" alt="头像" width="55" height="55">
+			<img :src="avatar" @click="toLogin" alt="头像" width="55" height="55">
 		</div>
-		<div>昵称</div>
+		<div>{{nick_name}}</div>
 	</div>
 </template>
 
 <script>
+	import { USER_PROFILE } from '@/api/user';
+	import avatar_default from "../../assets/images/avatar_default.png";
+	import bg_default from "../../assets/images/user_head_bg.png";
+	
 	export default {
 		name: "user-header",
+		
+		props: {
+			isLogin: {
+				type: Boolean,
+				default: false
+			}
+		},
+		
+		data(){
+			return {
+				nick_name: "昵称",
+				avatar: avatar_default,
+				background_image: bg_default
+			}
+		},
+		
+		activated(){
+			this.getUserInfo();	
+		},
+		
 		methods: {
+			getUserInfo(){
+				const infoData = this.$util.getLocalStorage('nick_name', 'background_image', 'avatar');
+				this.nick_name = infoData.nick_name || '昵称';
+				this.avatar = infoData.avatar || avatar_default;
+				this.background_image = infoData.background_image || bg_default;
+			},
 			toSetting(){
 				this.$router.push({name: "user-information"})
+			},
+			toLogin(){
+				!this.isLogin && this.$router.push({name: 'login', query: {redirect: "user"}})
 			}
 		}
 	}
@@ -23,7 +56,7 @@
 <style lang="scss" scoped>
 	.user_header {
 		position: relative;
-		background: url(../../assets/images/user_head_bg.png) no-repeat;
+		background-repeat: no-repeat;
 		background-size: cover;
 		height: 130px;
 		box-sizing: border-box;

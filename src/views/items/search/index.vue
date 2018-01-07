@@ -1,6 +1,6 @@
 <template>
 	<div class="item_search">
-		<form action="/search">
+		<form action="/search" @submit="disabledSubmit">
 			<van-search placeholder="请输入商品名称" v-model="keyword" @search="enterSearch" autofocus/>
 		</form>
 		<div class="item_search_content">
@@ -33,28 +33,35 @@
 				this.toSearchResult(keyword);
 			},
 			toSearchResult(word){
-				this.keyword = word;
-				this.$router.push({name: "list", query: {keyword: word, itemClass: 0}})
+				this.keyword = word.trim();
+				this.$router.push({name: "search-result", query: {keyword: word.trim()}})
 			},
 			pushHistoryTolocal(keyword){
 				let wordHistory = this.wordHistory;
 				let historyKeyWord = this.getKeyWordHistory();
-				if(historyKeyWord.indexOf(keyword) < 0){
+				if(!!keyword.trim() && historyKeyWord.indexOf(keyword) < 0){
 					wordHistory.push(keyword);
-					localStorage.setItem("keyword", wordHistory.join(","));
+					window.localStorage.setItem("keyword", wordHistory.join("|"));
 				}
 			},
 			getKeyWordHistory(){
-				return localStorage.getItem("keyword") || ""
+				const listWord =  window.localStorage.getItem("keyword");
+				return listWord ? listWord.split("|") : [];
 			},
 			clearHistory(){
-				localStorage.setItem("keyword", "");
-				this.wordHistory = [];
+				this.$dialog.confirm({
+				  message: '是否清空历史记录'
+				}).then(() => {
+					window.localStorage.setItem("keyword", "");
+					this.wordHistory = [];
+				});
 			},
+			disabledSubmit(){
+				return false;
+			}
 		},
 		activated(){
-			const wordHistory = this.getKeyWordHistory();
-			this.wordHistory = wordHistory ? wordHistory.split(",") : [];
+			this.wordHistory = this.getKeyWordHistory()
 		},
 		components: {
 			[Search.name]: Search,
@@ -66,6 +73,7 @@
 
 <style lang="scss" scoped>
 	@import "../../../assets/scss/var";
+
 	.item_search{
 		background-color: #fff;
 	}
