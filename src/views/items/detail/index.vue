@@ -98,7 +98,7 @@
 
 		methods: {
 			initData() {
-				this.$reqGet(`${GOODS_DETAIL}${this.itemId}`, {
+				this.$reqGet(`${GOODS_DETAIL}`, {
 					expand: "desc,skus,prop_imgs,item_imgs"
 				}).then(res => {
 					this.goods = res.data.data;
@@ -107,11 +107,7 @@
 
 			doBuyNow() {
 				if ((this.goods.has_sku && this.selectSku.sku_id) || !this.goods.has_sku) {
-					this.$dialog.confirm({
-						message: "您还未登录, 请先登录账号"
-					}).then(() => {
-						console.log("去登录");
-					}).catch(() => {})
+					this.$router.push({name: 'placeOrderEntity'})
 				} else {
 					let goodAction = this.$refs.goodAction
 					goodAction.showSku = true;

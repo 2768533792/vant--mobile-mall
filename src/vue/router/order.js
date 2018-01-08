@@ -16,7 +16,7 @@ export default [{
 			component: PlaceOrderEntity
 	},{
 			path: "/order/placeOrderVirtual",
-			name: "PlaceOrderVirtual",
+			name: "placeOrderVirtual",
 			component: PlaceOrderVirtual
 	},{
 			path: "/order/payment",

@@ -1,15 +1,15 @@
 //登录
-export const USER_LOGIN = "/user/v1/user/login"
-export const USER_LOGOUT = "/api/logout"
+export const USER_LOGIN = ""
+export const USER_LOGOUT = ""
 
 //用户信息
-export const USER_PROFILE = "/user/v1/user-profile"
-export const USER_MODIFY_PASSWORD = "/v1/user/password"
-export const USER_CHANGE_MOBILE = "/user/v1/user/change-mobile"
+export const USER_PROFILE = ""
+export const USER_MODIFY_PASSWORD = ""
+export const USER_CHANGE_MOBILE = ""
 
 //验证码
-export const USER_SENDCODE = "/user/v1/user/send-code"
+export const USER_SENDCODE = ""
 
 //地址
-export const ADDRESS = "/user/v1/address/"
-export const ADDRESS_DEFAULT = "/user/v1/address/default"
+export const ADDRESS = "/address"
+export const ADDRESS_DEFAULT = "/address-default"

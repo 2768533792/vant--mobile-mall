@@ -92,41 +92,9 @@
 			}
 		},
 		
-		watch: {
-			addressVal(val){
-				this.getPostFee();
-			},
-			selectSku(val){
-				this.getPostFee();
-			}
-		},
-
 		methods: {
 			emitAddressVal(data){
 				this.$emit("update:addressVal", data);
-			},
-			getPostFee(){
-				this.$reqGet(POST_FEE, {
-					number: this.selectSku.selectedNum,
-					weight: this.weight,
-					template_id: this.goodsInfo.postage_id,
-					target_city: this.addressVal.city
-				}).then( res =>{
-					const { is_fenxiao } = this.goodsInfo;
-					const { fee } = res.data.data;
-					if(is_fenxiao){
-						this.setFenXiaoPost(fee);
-					}else{
-						this.setNormalPost(fee);
-					}
-				})
-			},
-			setFenXiaoPost(postFee){
-				
-			},
-			setNormalPost(postFee){
-				console.log(postFee);
-				this.postFee = postFee;
 			},
 			setSkuGoodsInfo({name, pic_url, sales_price}) {
 				return {
@@ -180,7 +148,7 @@
 						let k_id = prop.substr(0, prop.indexOf(":"))
 						//规格值 prop_values
 						let vName = sku.substr(sku.indexOf(":") + 1)
-						let vid = parseInt(prop.substr(prop.indexOf(":") + 1))
+						let vid = prop.substr(prop.indexOf(":") + 1)
 
 						if (!skulist[i]) {
 							skulist[i] = {

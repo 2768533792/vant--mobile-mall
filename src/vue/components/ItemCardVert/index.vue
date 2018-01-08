@@ -83,7 +83,6 @@
 	.item_card_name {
 		line-height: 16px;
 		font-size: 12px;
-		min-height: 35px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
