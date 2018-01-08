@@ -2,9 +2,11 @@
 
 > 使用有赞移动端 Vue 组件库 — [Vant](https://www.youzanyun.com/zanui/vant#/zh-CN/component/intro)
 
-## 预览
+## 预览Gif图(流量警告)
 
-![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/per-view-mobile.gif) 
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/1.gif) 
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/2.gif) 
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/3.gif) 
 
 ## Vue相关库与插件
 
