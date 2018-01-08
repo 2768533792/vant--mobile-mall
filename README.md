@@ -2,7 +2,9 @@
 
 > 使用有赞移动端 Vue 组件库 — [Vant](https://www.youzanyun.com/zanui/vant#/zh-CN/component/intro)
 
+## 预览
 
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/per-view-mobile.gif) 
 
 ## Vue相关库与插件
 
@@ -19,6 +21,20 @@
 > 店铺信息: sessionStorage
 >
 > 用户信息及token:  localStorage
+
+## mock数据
+
+
+``` bash
+#先全局安装 json-server, 如果已经装过可忽略这步
+npm install -g json-server
+
+cd ./mock
+
+npm i
+
+json-server db.json
+```
 
 ## Build Setup
 
