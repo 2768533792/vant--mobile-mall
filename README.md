@@ -4,7 +4,7 @@
 
 ## 预览
 
-![gif](https://github.com/qianzhaoy/vant--mobile-mall/per-view-mobile.gif) 
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/per-view-mobile.gif) 
 
 ## Vue相关库与插件
 
