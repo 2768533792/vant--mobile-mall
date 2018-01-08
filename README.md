@@ -4,9 +4,9 @@
 
 ## 预览Gif图(流量警告)
 
-![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/1.gif) 
-![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/2.gif) 
-![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/3.gif) 
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/1.gif) </br></br>
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/2.gif) </br></br>
+![gif](https://github.com/qianzhaoy/vant--mobile-mall/blob/master/3.gif) </br></br>
 
 ## Vue相关库与插件
 
