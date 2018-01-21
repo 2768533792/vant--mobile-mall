@@ -16,6 +16,7 @@ const UserInfo_SetPassword = () => import(/* webpackChunkName: "UserInfo_SetPass
 
 const UserOrderEntityList= () => import(/* webpackChunkName: "order-entity-list" */ '@/views/user/order-entity-list/');
 const UserOrderEleList= () => import(/* webpackChunkName: "order-ele-list" */ '@/views/user/order-ele-list/');
+const UserRefundList= () => import(/* webpackChunkName: "user-refund-list" */ '@/views/user/refund-list/');
 
 const Tabbar = () => import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');
 
@@ -88,8 +89,12 @@ export default [{
 			props: true,
 			component: UserOrderEntityList
 	},{
-			path: "/user/orderEle/list/:status",
+			path: "/user/orderEle/list/:active",
 			name: "user-order-ele-list",
 			props: true,
 			component: UserOrderEleList
+	},{
+			path: "/user/refund/list",
+			name: "user-refund-list",
+			component: UserRefundList
 	}]
