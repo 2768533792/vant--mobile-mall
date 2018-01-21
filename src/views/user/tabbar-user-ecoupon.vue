@@ -2,25 +2,25 @@
 	<div>
 		<van-cell-group>
 			<van-cell title="我的电子券" isLink>
-				<router-link to="/" class="text-desc">全部电子券</router-link>
+				<router-link to="/user/orderEle/list/0" class="text-desc">全部电子券</router-link>
 			</van-cell>
 		</van-cell-group>
 
 		<van-row class="ecoupon_status">
 			<van-col span="6">
-				<div class="ecoupon_status_icon">
+				<div class="ecoupon_status_icon" @click="$router.push({path: '/user/orderEle/list/1'})">
 					<van-icon name="coupon" />
 				</div>
 				<div>待使用</div>
 			</van-col>
 			<van-col span="6">
-				<div class="ecoupon_status_icon">
+				<div class="ecoupon_status_icon" @click="$router.push({path: '/user/orderEle/list/2'})">
 					<van-icon name="coupon-used" />
 				</div>
 				<div>已使用</div>
 			</van-col>
 			<van-col span="6">
-				<div class="ecoupon_status_icon">
+				<div class="ecoupon_status_icon" @click="$router.push({path: '/user/orderEle/list/3'})">
 					<van-icon name="coupon-due" />
 				</div>
 				<div>过期关闭</div>

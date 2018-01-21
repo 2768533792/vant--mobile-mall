@@ -14,6 +14,9 @@ const UserInfo_SetMobile = () => import(/* webpackChunkName: "UserInfo_SetMobile
 const UserInfo_SetNickname = () => import(/* webpackChunkName: "UserInfo_SetNickname" */ '@/views/user/user-information-set/set-nickname/');
 const UserInfo_SetPassword = () => import(/* webpackChunkName: "UserInfo_SetPassword" */ '@/views/user/user-information-set/set-password/');
 
+const UserOrderEntityList= () => import(/* webpackChunkName: "order-entity-list" */ '@/views/user/order-entity-list/');
+const UserOrderEleList= () => import(/* webpackChunkName: "order-ele-list" */ '@/views/user/order-ele-list/');
+
 const Tabbar = () => import(/* webpackChunkName: "Tabbar" */ '@/vue/components/Tabbar/');
 
 export default [{
@@ -79,4 +82,14 @@ export default [{
 			path: "/user/information/setPassword",
 			name: "user-info-setPassword",
 			component: UserInfo_SetPassword
+	},{
+			path: "/user/order/list/:active",
+			name: "user-order-list",
+			props: true,
+			component: UserOrderEntityList
+	},{
+			path: "/user/orderEle/list/:status",
+			name: "user-order-ele-list",
+			props: true,
+			component: UserOrderEleList
 	}]

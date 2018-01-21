@@ -34,7 +34,6 @@ Vue.use(Lazyload,{
 });
 
 Vue.use(Tag);
-Vue.use(Dialog);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Field);
@@ -42,7 +41,9 @@ Vue.use(Icon);
 Vue.use(Button);
 Vue.use(Popup);
 Vue.use(loading);
-
+Toast.setDefaultOptions({
+	duration: 1500
+})
 //FastClick.attach(document.body);
 //	moment.locale('zh-cn')
 //	console.log(moment("20111031", "YYYYMMDD").fromNow());
