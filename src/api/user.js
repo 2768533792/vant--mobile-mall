@@ -13,3 +13,6 @@ export const USER_SENDCODE = ""
 //地址
 export const ADDRESS = "/address"
 export const ADDRESS_DEFAULT = "/address-default"
+
+//收藏
+export const GOODS_COLLECT_LIST = "/moreGoods"
