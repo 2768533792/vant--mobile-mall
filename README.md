@@ -31,11 +31,7 @@
 #先全局安装 json-server, 如果已经装过可忽略这步
 npm install -g json-server
 
-cd ./mock
-
-npm i
-
-json-server db.json
+npm run mock
 ```
 
 ## Build Setup
