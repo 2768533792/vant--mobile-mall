@@ -54,15 +54,30 @@
 				]
 			}
 		},
+		
+		watch:{
+			'$route': 'changeActive'
+		},
+		
 		created(){
 			const toName = this.$route.name
-			this.tabbar.forEach((tab, i) => {
-				if(tab.pathName == toName){
-					this.active = i;
-					return false;
-				}
-			})
+			this.setActive(toName)
 		},
+		
+		methods: {
+			changeActive({ name }){
+				this.setActive(name)
+			},
+			setActive(name){
+				this.tabbar.forEach((tab, i) => {
+					if(tab.pathName == name){
+						this.active = i;
+						return false;
+					}
+				})
+			}
+		},
+		
 		components:{
 			 [Tabbar.name]: Tabbar,
 			 [TabbarItem.name]: TabbarItem,
