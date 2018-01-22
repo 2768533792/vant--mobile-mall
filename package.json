@@ -8,6 +8,7 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
+    "mock": "json-server ./mock/db.json",
     "build:dll": "webpack --config build/webpack.dll.conf.js"
   },
   "dependencies": {
