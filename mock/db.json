@@ -933,5 +933,39 @@
 		"code": 200,
 		"message": "OK",
 		"success": true
+	},
+	"shop-info": {
+		"data": {
+			"id": "1",
+			"user_id": "758",
+			"shop_id": "1",
+			"shop_name": "\u6b27\u4e09\u4e0d\u6c5f\u4e8c\u8def\u5e971",
+			"branch_name": "\u6c5f\u4e8c\u8def\u5e97",
+			"shop_qrcode": "http:\/\/moresing-v3.img-cn-shanghai.aliyuncs.com\/201612\/L32tMbF1PUiy40A9.png",
+			"avatar": "http:\/\/mamaqunaer.oss-cn-shanghai.aliyuncs.com\/20171201\/ZcawdYtnn3.jpg",
+			"banner": "http:\/\/mamaqunaer.oss-cn-shanghai.aliyuncs.com\/android\/201711\/6ebfc6b423caa4db6e3c8a91997210b7.JPEG",
+			"notice": "1212412",
+			"contact": "13370140905",
+			"wechat_id": "99999",
+			"qr_code": "http:\/\/mamaqunaer.oss-cn-shanghai.aliyuncs.com\/android\/201711\/607bde41c4c2e540d7f57b47f65c3748.JPEG",
+			"hash_code": "85f3952d8af25eec1fc533d77b6bdb29",
+			"item_limit": "2",
+			"status": "1",
+			"created_at": "1481964080",
+			"updated_at": "1516673113",
+			"province": "110000",
+			"city": "110100",
+			"district": "110101",
+			"area_name": "\u5317\u4eac,\u5317\u4eac\u5e02,\u4e1c\u57ce\u533a",
+			"address": "\u897f\u5b89\u8def100\u53f7",
+			"lng": "38.911251220094",
+			"lat": "121.60083184468",
+			"is_partner": 0,
+			"shop_status": 10,
+			"city_name": "\u5317\u4eac\u5e02"
+		},
+		"code": 200,
+		"message": "OK",
+		"success": true
 	}
 }
