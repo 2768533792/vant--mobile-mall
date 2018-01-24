@@ -1,9 +1,6 @@
 <template>
 	<md-field-group class="register_submit">
 		<md-field v-model="code" icon="mobile" placeholder="请输入验证码">
-			<div slot="rightIcon" @click="getCode" class="getCode" :class="{time_down: isTimeDown}">
-				{{downText}}
-			</div>
 		</md-field>
 		<md-field v-model="password" icon="lock" placeholder="请输入密码"/>
 		<md-field v-model="repeatPassword" icon="lock" placeholder="请再次确认密码"/>
@@ -17,7 +14,6 @@
 <script>
 	import field from '@/vue/components/field/';
 	import fieldGroup from '@/vue/components/field-group/';
-	import time_down from '@/vue/mixin/time-down';
 	
 	export default {
 		data(){
@@ -28,7 +24,6 @@
 			}	
 		},
 		
-		mixins: [time_down],
 		
 		activated(){
 			this.init();	

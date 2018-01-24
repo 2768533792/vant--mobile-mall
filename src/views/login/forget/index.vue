@@ -9,10 +9,6 @@
 			v-model="code"
 			icon="lock"
 			placeholder="请输入短信验证码">
-			
-			<div slot="rightIcon" @click="getCode" class="getCode" :class="{time_down: isTimeDown}">
-				{{downText}}
-			</div>
 		</md-field >
 			
 		<div class="foget_submit">
@@ -24,7 +20,6 @@
 <script>
 	import field from '@/vue/components/field/';
 	import fieldGroup from '@/vue/components/field-group/';
-	import time_down from '@/vue/mixin/time-down';
 	
 	export default {
 		
@@ -39,7 +34,6 @@
 			this.timeDown();	
 		},
 		
-		mixins: [time_down],
 		
 		computed: {
 			downText(){

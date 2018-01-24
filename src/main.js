@@ -45,9 +45,6 @@ Toast.setDefaultOptions({
 	duration: 1500
 })
 //FastClick.attach(document.body);
-//	moment.locale('zh-cn')
-//	console.log(moment("20111031", "YYYYMMDD").fromNow());
-//	console.log(moment().format('dddd'));
 new Vue({
   el: '#app',
 	router,
