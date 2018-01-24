@@ -99,6 +99,10 @@
 		},
 		
 		created() {
+			const shop_id = window.sessionStorage.getItem('id');
+			shop_id && this.getShopInfo("avatar","shop_name","address","notice","contact").then(res => {
+				this.shopInfo = res;
+			})
 			this.initViews();
 		},
 		
