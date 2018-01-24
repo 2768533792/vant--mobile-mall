@@ -4,7 +4,6 @@
 			<md-field 
 				v-model="account"
 				icon="username" 
-				@input="onInput"
 				right-icon="clear-full"
 				@right-click="clearText" />
 				
@@ -63,11 +62,11 @@
 			clearText() {
 				this.account = "";
 			},
-			onInput() {},
 			loginSubmit() {
 				const loginData = this.getLoginData();
 				this.isLogining = true;
-				this.$reqPost(USER_LOGIN, loginData).then(res => {
+				this.$reqGet(USER_LOGIN).then(res => {
+					console.log(res);
 					this.$util.setLocalStorage({
 						Authorization: res.data.data.access_token
 					});

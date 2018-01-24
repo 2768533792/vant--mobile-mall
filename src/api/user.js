@@ -1,9 +1,9 @@
 //登录
-export const USER_LOGIN = ""
+export const USER_LOGIN = "/user-login"
 export const USER_LOGOUT = ""
 
 //用户信息
-export const USER_PROFILE = ""
+export const USER_PROFILE = "/user-profile"
 export const USER_MODIFY_PASSWORD = ""
 export const USER_CHANGE_MOBILE = ""
 
