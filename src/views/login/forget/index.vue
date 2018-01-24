@@ -8,7 +8,14 @@
 		<md-field 
 			v-model="code"
 			icon="lock"
-			placeholder="请输入短信验证码">
+			placeholder="请输入短信验证码"
+		>
+			<div slot="rightIcon" @click="getCode" class="getCode red">
+				<countdown v-if="counting" :time="60000" @countdownend="countdownend">
+				  <template slot-scope="props">{{ +props.seconds || 60 }}秒后获取</template>
+				</countdown>
+				<span v-else>获取验证码</span>
+			</div>
 		</md-field >
 			
 		<div class="foget_submit">
@@ -25,20 +32,10 @@
 		
 		data(){
 			return {
+				counting: false,
 				mobile: "",
 				code: ""
 			}	
-		},
-		
-		activated(){
-			this.timeDown();	
-		},
-		
-		
-		computed: {
-			downText(){
-				return this.isTimeDown ? `${this.downTime}s后获取` : '获取验证码'
-			}
 		},
 		
 		methods: {
@@ -46,7 +43,10 @@
 				this.$router.push({name: "forgetReset"})
 			},
 			getCode(){
-				this.isTimeDown = true;
+				this.counting = true;
+			},
+			countdownend(){
+				this.counting = false;
 			}
 		},
 		
