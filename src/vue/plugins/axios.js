@@ -8,7 +8,7 @@ let instance = axios.create({
 });
 
 instance.interceptors.request.use( (config) => {
-	!config.hideLoading && Toast.loading({mask: true});
+	!config.hideLoading && Toast.loading({mask: true, duration: 0});
 	if (config.method === 'post' || config.method === 'put') {
 		config.data = qs.stringify(config.data);
 	}
