@@ -13,7 +13,6 @@
 	import orderGroup from "./tabbar-user-order";
 	import ecouponGroup from "./tabbar-user-ecoupon";
 	import userModule from "./tabbar-user-module";
-	import { USER_LOGOUT } from '@/api/user';
 	
 	export default {
 
@@ -29,10 +28,8 @@
 		
 		methods: {
 			quit(){
-				this.$reqGet(USER_LOGOUT).then(res => {
-					this.$util.removeLocalStorage('Authorization', 'user_id', 'avatar', 'background_image', 'nick_name');
-					this.$router.push({name: 'login'});
-				})
+				this.$util.removeLocalStorage('Authorization', 'user_id', 'avatar', 'background_image', 'nick_name');
+				this.$router.push({name: 'login'});
 			},
 			getLoginStatus(){
 				this.isLogin = !!localStorage.getItem('Authorization') && !!localStorage.getItem('user_id');
