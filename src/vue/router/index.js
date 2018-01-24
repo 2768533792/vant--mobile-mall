@@ -16,8 +16,6 @@ let RouterModel = new Router({
 
 
 RouterModel.beforeEach((to, from, next) => {
-	Toast.loading({ mask: true });
-	
 	const { Authorization, user_id} = Vue.prototype.$util.getLocalStorage('Authorization', 'user_id')
 	if(!Authorization && !user_id){
 		if(to.meta.login){
@@ -29,7 +27,6 @@ RouterModel.beforeEach((to, from, next) => {
 })
 
 RouterModel.afterEach((to, from) => {
-	Toast.clear();
 })
 
 export default RouterModel;
