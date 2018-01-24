@@ -2,7 +2,7 @@
 
 > 使用有赞移动端 Vue 组件库 — [Vant](https://www.youzanyun.com/zanui/vant#/zh-CN/component/intro)
 
-## 预览Gif图(流量警告)
+## 预览Gif图(gif加载较慢，请稍后。。。)
 
 ![gif](https://github.com/qianzhaoy/qianzhaoy.github.io/blob/master/per-view/1.gif) </br></br>
 ![gif](https://github.com/qianzhaoy/qianzhaoy.github.io/blob/master/per-view/2.gif) </br></br>
