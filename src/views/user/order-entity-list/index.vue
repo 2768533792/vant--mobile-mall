@@ -19,7 +19,7 @@
 		<van-panel 
 			v-for="(el, i) in items"
 			class="order_list--panel"
-			:key="el.id"
+			:key="i"
 			:title="'订单编号: ' + el.id"
 			:status="getStatusText(el.status)"
 		>
@@ -76,7 +76,7 @@
 	import status60 from "./handle-status-60";
 	import status70 from "./handle-status-70";
 	
-	import { ORDER_LIST, ORDER_DELETE, ORDER_RECEIPT, ORDER_CANCEL, ORDER_REMINDER } from '@/api/order';
+	import { ORDER_LIST } from '@/api/order';
 	import loadMore from '@/vue/mixin/load-more';
 	const STATUS_TEXT = {
 		10: "待付款",
@@ -160,15 +160,13 @@
 			},
 			async delOrder(i){
 				const id = this.items[i].id;
-				const confirm = await this.$dialog.confirm({message: "确定要删除该订单吗?"});
-				const res = await this.$reqPut(`${ORDER_DELETE}/${id}`);
+				await this.$dialog.confirm({message: "确定要删除该订单吗?"});
 				this.items.splice(i, 1);
 				this.$toast("已删除该订单");
 			},
 			async cancelOrder(i){
 				const id = this.items[i].id;
-				const confirm = await this.$dialog.confirm({message: "确定要取消该订单吗?"});
-				const res = await this.$reqPut(`${ORDER_CANCEL}/${id}`);
+				await this.$dialog.confirm({message: "确定要取消该订单吗?"});
 				if(this.activeIndex == 0){
 					this.items[i].status = 60;
 				}else{
@@ -178,14 +176,12 @@
 			},
 			async receiptOrder(i){
 				const id = this.items[i].id;
-				const confirm = await this.$dialog.confirm({message: "请确认收到货物, 确认收货后无法撤销!"});
-				const res = await this.$reqPut(`${ORDER_RECEIPT}/${id}`);
+				await this.$dialog.confirm({message: "请确认收到货物, 确认收货后无法撤销!"});
 				this.items[i].status = 40;
 				this.$toast("已确认收货");
 			},
-			async reminderOrder(i){
+			reminderOrder(i){
 				const id = this.items[i].id;
-				const res = await this.$reqPut(`${ORDER_REMINDER}/${id}`);
 				this.items[i].is_can_reminder = false;
 				this.$toast("已提醒卖家发货, 请耐心等待哦~");
 			},
@@ -194,7 +190,7 @@
 				this.$router.push({ name: "payment", params: { order_id: id } })
 			},
 			handleTabClick(index){
-				this.$router.replace({name: "user-order-list", params: { status: index }})
+				this.$router.replace({name: "user-order-list", params: { active: index }})
 			},
 			getStatusText(status){
 				return STATUS_TEXT[status] || '';
