@@ -26,6 +26,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+	new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/),
     new webpack.DefinePlugin({
       'process.env': env
     }),
