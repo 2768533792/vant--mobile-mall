@@ -1,4 +1,4 @@
-const login = () => import(/* webpackChunkName: "Login" */ '@/views/login/login');
+const login = () => import(/* webpackChunkName: "login" */ '@/views/login/login');
 const registerGetCode = () => import(/* webpackChunkName: "register-getCode" */ '@/views/login/register-getCode/');
 const registerSubmit = () => import(/* webpackChunkName: "register-submit" */ '@/views/login/register-submit/');
 const registerStatus = () => import(/* webpackChunkName: "register-status" */ '@/views/login/register-status/');
