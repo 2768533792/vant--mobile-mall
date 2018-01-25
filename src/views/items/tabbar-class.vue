@@ -18,7 +18,7 @@
 <script>
 	import { Search } from 'vant';
 	import classTree from './tabbar-class-tree';
-	import IsEmpty from "@/vue/components/IsEmpty/";
+	import IsEmpty from "@/vue/components/is-empty/";
 	import { GOODS_CATEGORY } from '@/api/goods';
 	
 	export default {

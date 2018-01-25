@@ -71,8 +71,8 @@
 
 <script>
 	import ItemGroup from "@/vue/components/ItemGroup/";
-	import IsEmpty from "@/vue/components/IsEmpty/";
-	import ItemCardHori from '@/vue/components/ItemCardHori/';
+	import IsEmpty from "@/vue/components/is-empty/";
+	import ItemCardHori from '@/vue/components/item-card-hori/';
 	import { Search, Loading, Tab, Tabs } from 'vant';
 	import loadMore from '@/vue/mixin/load-more';
 	import { GOODS_SEARCH } from '@/api/goods';

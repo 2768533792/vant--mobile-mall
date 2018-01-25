@@ -53,8 +53,8 @@
 
 <script>
 	import ItemGroup from "@/vue/components/ItemGroup/";
-	import ItemCardHori from '@/vue/components/ItemCardHori/';
-	import IsEmpty from "@/vue/components/IsEmpty/";
+	import ItemCardHori from '@/vue/components/item-card-hori/';
+	import IsEmpty from "@/vue/components/is-empty/";
 	import { GOODS_COLLECT_LIST } from '@/api/user';
 	import { Search } from 'vant';
 	import loadMore from '@/vue/mixin/load-more';

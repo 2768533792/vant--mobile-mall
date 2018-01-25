@@ -66,7 +66,7 @@
 
 <script>
 	import { Tab, Tabs, Panel, Card } from 'vant';
-	import IsEmpty from "@/vue/components/IsEmpty/";
+	import IsEmpty from "@/vue/components/is-empty/";
 	import status10 from "./handle-status-10";
 	import status20 from "./handle-status-20";
 	import status25 from "./handle-status-25";

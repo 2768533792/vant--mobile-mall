@@ -64,8 +64,8 @@
 	import ShopInfoGroup from "./tabbar-home-shop-info";
 	import ItemGroup from "@/vue/components/ItemGroup/";
 	
-	import ItemCardVert from '@/vue/components/ItemCardVert/';
-	import ItemCardHori from '@/vue/components/ItemCardHori/';
+	import ItemCardVert from '@/vue/components/item-card-vert/';
+	import ItemCardHori from '@/vue/components/item-card-hori/';
 	import { HOME_module, ALL_GOODS } from '@/api/shop';
 	
 	import loadMore from '@/vue/mixin/load-more';

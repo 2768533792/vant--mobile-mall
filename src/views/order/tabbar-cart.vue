@@ -64,7 +64,7 @@
 		Stepper,
 	} from 'vant';
 	
-	import isEmpty from "@/vue/components/IsEmpty/";
+	import isEmpty from "@/vue/components/is-empty/";
 	
 	export default {
 		data() {

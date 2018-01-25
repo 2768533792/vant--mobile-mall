@@ -61,7 +61,7 @@
 
 <script>
 	import { Tab, Tabs, Panel, Card } from 'vant';
-	import IsEmpty from "@/vue/components/IsEmpty/";
+	import IsEmpty from "@/vue/components/is-empty/";
 	import { REFUND_LIST, REFUND_CANCEL } from '@/api/order';
 	import loadMore from '@/vue/mixin/load-more';
 	const STATUS_TEXT = {
