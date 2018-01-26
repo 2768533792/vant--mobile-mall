@@ -52,7 +52,7 @@
 </template>
 
 <script>
-	import ItemGroup from "@/vue/components/ItemGroup/";
+	import ItemGroup from "@/vue/components/item-group/";
 	import ItemCardHori from '@/vue/components/item-card-hori/';
 	import IsEmpty from "@/vue/components/is-empty/";
 	import { GOODS_COLLECT_LIST } from '@/api/user';

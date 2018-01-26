@@ -62,7 +62,7 @@
 	import mx_start from "@/assets/images/mx_start.png";
 	import SignBoard from "./tabbar-home-sign-board";
 	import ShopInfoGroup from "./tabbar-home-shop-info";
-	import ItemGroup from "@/vue/components/ItemGroup/";
+	import ItemGroup from "@/vue/components/item-group/";
 	
 	import ItemCardVert from '@/vue/components/item-card-vert/';
 	import ItemCardHori from '@/vue/components/item-card-hori/';

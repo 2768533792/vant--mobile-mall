@@ -70,7 +70,7 @@
 </template>
 
 <script>
-	import ItemGroup from "@/vue/components/ItemGroup/";
+	import ItemGroup from "@/vue/components/item-group/";
 	import IsEmpty from "@/vue/components/is-empty/";
 	import ItemCardHori from '@/vue/components/item-card-hori/';
 	import { Search, Loading, Tab, Tabs } from 'vant';

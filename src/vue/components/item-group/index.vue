@@ -40,8 +40,8 @@
 	</div>
 </template>
 <script>
-	import ItemCardVert from '@/vue/components/item-card-vert/';
-	import ItemCardHori from '@/vue/components/item-card-hori/';
+	import ItemCardVert from '../item-card-vert/';
+	import ItemCardHori from '../item-card-hori/';
 	import { Cell, CellGroup, Icon } from 'vant';
 	import scrollArrow from '../_directive/scrollMore';
 	import util from "@/assets/js/util";
