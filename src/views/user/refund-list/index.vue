@@ -60,10 +60,14 @@
 </template>
 
 <script>
+	import { REFUND_LIST, REFUND_CANCEL } from '@/api/order';
+	
 	import { Tab, Tabs, Panel, Card } from 'vant';
 	import IsEmpty from "@/vue/components/is-empty/";
-	import { REFUND_LIST, REFUND_CANCEL } from '@/api/order';
+	
 	import loadMore from '@/vue/mixin/load-more';
+	import scrollFixed from '@/vue/mixin/scroll-fixed';
+	
 	const STATUS_TEXT = {
 		10: "退款中",
 		50: "退款关闭",
@@ -73,7 +77,7 @@
 	export default {
 		name: 'order-list',
 
-		mixins: [loadMore],
+		mixins: [loadMore, scrollFixed],
 		
 
 		data() {

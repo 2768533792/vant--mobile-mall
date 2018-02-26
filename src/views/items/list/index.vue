@@ -70,12 +70,15 @@
 </template>
 
 <script>
+	import { GOODS_SEARCH } from '@/api/goods';
+	
 	import ItemGroup from "@/vue/components/item-group/";
 	import IsEmpty from "@/vue/components/is-empty/";
 	import ItemCardHori from '@/vue/components/item-card-hori/';
 	import { Search, Loading, Tab, Tabs } from 'vant';
+	
 	import loadMore from '@/vue/mixin/load-more';
-	import { GOODS_SEARCH } from '@/api/goods';
+	import scrollFixed from '@/vue/mixin/scroll-fixed';
 	
 	export default {
 		name: "Item-list",
@@ -90,7 +93,7 @@
 			}
 		},
 		
-		mixins: [loadMore],
+		mixins: [loadMore, scrollFixed],
 		
 		data(){
 			const shop_id = this.$util.getLocationParam("shop_id")

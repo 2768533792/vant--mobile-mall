@@ -65,6 +65,8 @@
 </template>
 
 <script>
+	import { ELE_COUPON_LIST, ORDER_DELETE, ORDER_CANCEL } from '@/api/order';
+	
 	import { Tab, Tabs, Panel, Card } from 'vant';
 	import IsEmpty from "@/vue/components/is-empty/";
 	import status10 from "./handle-status-10";
@@ -75,8 +77,9 @@
 	import status110 from "./handle-status-110";
 	import status120 from "./handle-status-120";
 	
-	import { ELE_COUPON_LIST, ORDER_DELETE, ORDER_CANCEL } from '@/api/order';
 	import loadMore from '@/vue/mixin/load-more';
+	import scrollFixed from '@/vue/mixin/scroll-fixed';
+	
 	const STATUS_TEXT = {
 		10: "待付款",
 		40: "已完成",
@@ -90,7 +93,7 @@
 	export default {
 		name: 'order-list',
 
-		mixins: [loadMore],
+		mixins: [loadMore, scrollFixed],
 		
 		props: {
 			status: {

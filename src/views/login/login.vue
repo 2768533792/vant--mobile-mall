@@ -12,7 +12,6 @@
 	import loginFooter from './login-footer';
 	
 	export default {
-		
 		components: {
 			[loginHeader.name]: loginHeader,
 			[loginRequest.name]: loginRequest,
@@ -27,5 +26,4 @@
 		position: relative;
 		background-color: #fff;
 	}
-	
 </style>

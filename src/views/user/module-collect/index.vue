@@ -52,16 +52,19 @@
 </template>
 
 <script>
+	import { GOODS_COLLECT_LIST } from '@/api/user';
+	
 	import ItemGroup from "@/vue/components/item-group/";
 	import ItemCardHori from '@/vue/components/item-card-hori/';
 	import IsEmpty from "@/vue/components/is-empty/";
-	import { GOODS_COLLECT_LIST } from '@/api/user';
 	import { Search } from 'vant';
+	
 	import loadMore from '@/vue/mixin/load-more';
+	import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 	export default {
 
-		mixins: [loadMore],
+		mixins: [loadMore, scrollFixed],
 
 		data() {
 			const shop_id = this.$util.getLocationParam("shop_id")

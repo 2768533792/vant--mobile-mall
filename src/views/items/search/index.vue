@@ -18,6 +18,7 @@
 <script>
 	import { Search } from 'vant';
 	import SrarchTag from './search-tag';
+	
 	export default {
 		data(){
 			return {

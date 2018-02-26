@@ -21,8 +21,8 @@
 		
 		<item-group
 			v-for="( group, key ) in itemGroup"
-			:key="key"
 			v-if="group"
+			:key="key"
 			class="interval_bot"
 			:setting="group.setting"
 		>
@@ -58,20 +58,22 @@
 </template>
 
 <script>
+	import { HOME_module, ALL_GOODS } from '@/api/shop';
+	
 	import mx_be_to from "@/assets/images/mx_be_to.png";
 	import mx_start from "@/assets/images/mx_start.png";
+	
 	import SignBoard from "./tabbar-home-sign-board";
 	import ShopInfoGroup from "./tabbar-home-shop-info";
 	import ItemGroup from "@/vue/components/item-group/";
-	
 	import ItemCardVert from '@/vue/components/item-card-vert/';
 	import ItemCardHori from '@/vue/components/item-card-hori/';
-	import { HOME_module, ALL_GOODS } from '@/api/shop';
 	
 	import loadMore from '@/vue/mixin/load-more';
+	import scrollFixed from '@/vue/mixin/scroll-fixed';
 	
 	export default {
-		mixins: [loadMore],
+		mixins: [loadMore, scrollFixed],
 		
 		data(){
 			const shop_id = this.$util.getLocationParam("shop_id")

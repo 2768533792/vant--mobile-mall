@@ -54,6 +54,8 @@
 </template>
 
 <script>
+	import { GOODS_DETAIL } from '@/api/goods';
+	
 	import {
 		Swipe,
 		SwipeItem,
@@ -62,7 +64,6 @@
 		GoodsActionMiniBtn,
 	} from 'vant';
 	
-	import { GOODS_DETAIL } from '@/api/goods';
 	import md_kefu from '@/vue/components/md-kefu/';
 
 	export default {
