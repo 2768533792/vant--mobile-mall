@@ -1192,5 +1192,165 @@
 		"code": 200,
 		"message": "OK",
 		"success": true
+	},
+	"electronic-list": {
+		"data": {
+			"items": [{
+				"id": "MD2018022600001480",
+				"status": 10,
+				"total_fee": 1,
+				"serviceItems": [{
+					"id": "MD2018022600001589",
+					"order_id": "MD2018022600001480",
+					"item_id": 3689,
+					"sku_id": "",
+					"price": 1,
+					"quantity": 1,
+					"item_name": "\u9897\u7c92\u5242\u963f\u8428\u5fb7\u8def\u53e3\u9644\u8fd1\u963f\u5580\u7409\u65af\u4f4e\u4ef7\u623f",
+					"pic_url": "http:\/\/mamaqunaer.oss-cn-shanghai.aliyuncs.com\/user\/1000597\/m5k6GmMZKT.jpg",
+					"sku_props_str": "",
+					"total_fee": 1,
+					"start_time": 1513069200,
+					"end_time": 1525845401,
+					"status": 10
+				}]
+			}],
+			"_links": {
+				"self": {
+					"href": "http:\/\/api-order-madian-dev.mamaqunaer.com\/v1\/electronic\/coupon?per-page=8&page=1&shop_id=1&status=0"
+				}
+			},
+			"page": {
+				"totalCount": 1,
+				"pageCount": 1,
+				"currentPage": 1,
+				"perPage": 8
+			}
+		},
+		"code": 200,
+		"message": "OK",
+		"success": true
+	},
+	"refund-list": {
+		"data": {
+			"items": [{
+				"id": 205,
+				"order_id": "MD2018011600001107",
+				"apply_refund_fee": 12,
+				"status": 60,
+				"orderItem": {
+					"id": "MD2018011600001131",
+					"price": 7,
+					"quantity": 2,
+					"item_id": 1849,
+					"item_name": "\u4fdd\u7a0e\u533a\uff01Merries\u82b1\u738b\u7eb8\u5c3f\u88e4NB90",
+					"pic_url": "http:\/\/moresing-v3.img-cn-shanghai.aliyuncs.com\/201611\/JDzsAMR8736tpgfe.jpg",
+					"sku_props_str": "",
+					"total_fee": 14,
+					"payment": 12
+				}
+			}, {
+				"id": 201,
+				"order_id": "MD2018011500001084",
+				"apply_refund_fee": 1,
+				"status": 60,
+				"orderItem": {
+					"id": "MD2018011500001108",
+					"price": 1,
+					"quantity": 1,
+					"item_id": 3631,
+					"item_name": "ujbfgh",
+					"pic_url": "http:\/\/mamaqunaer.oss-cn-shanghai.aliyuncs.com\/android\/201711\/ff9e85124638b593212148aad47c893b.JPEG",
+					"sku_props_str": "",
+					"total_fee": 1,
+					"payment": 1
+				}
+			}, {
+				"id": 191,
+				"order_id": "MD2018012200001216",
+				"apply_refund_fee": 1,
+				"status": 60,
+				"orderItem": {
+					"id": "MD2018012200001279",
+					"price": 1,
+					"quantity": 1,
+					"item_id": 3566,
+					"item_name": "\u89e3\u653e\u519b",
+					"pic_url": "http:\/\/moresing-v3.img-cn-shanghai.aliyuncs.com\/201711\/15100451141371822.jpg",
+					"sku_props_str": "",
+					"total_fee": 1,
+					"payment": 1
+				}
+			}, {
+				"id": 101,
+				"order_id": "MD2018012200001216",
+				"apply_refund_fee": 1,
+				"status": 60,
+				"orderItem": {
+					"id": "MD2018012200001279",
+					"price": 1,
+					"quantity": 1,
+					"item_id": 3566,
+					"item_name": "\u89e3\u653e\u519b",
+					"pic_url": "http:\/\/moresing-v3.img-cn-shanghai.aliyuncs.com\/201711\/15100451141371822.jpg",
+					"sku_props_str": "",
+					"total_fee": 1,
+					"payment": 1
+				}
+			}, {
+				"id": 105,
+				"order_id": "MD2018012200001216",
+				"apply_refund_fee": 1,
+				"status": 60,
+				"orderItem": {
+					"id": "MD2018012200001279",
+					"price": 1,
+					"quantity": 1,
+					"item_id": 3566,
+					"item_name": "\u89e3\u653e\u519b",
+					"pic_url": "http:\/\/moresing-v3.img-cn-shanghai.aliyuncs.com\/201711\/15100451141371822.jpg",
+					"sku_props_str": "",
+					"total_fee": 1,
+					"payment": 1
+				}
+			}, {
+				"id": 112,
+				"order_id": "MD2018012200001216",
+				"apply_refund_fee": 1,
+				"status": 60,
+				"orderItem": {
+					"id": "MD2018012200001279",
+					"price": 1,
+					"quantity": 1,
+					"item_id": 3566,
+					"item_name": "\u89e3\u653e\u519b",
+					"pic_url": "http:\/\/moresing-v3.img-cn-shanghai.aliyuncs.com\/201711\/15100451141371822.jpg",
+					"sku_props_str": "",
+					"total_fee": 1,
+					"payment": 1
+				}
+			}],
+			"_links": {
+				"self": {
+					"href": "http:\/\/api-order-madian-dev.mamaqunaer.com\/v1\/refund\/list?per-page=8&page=1&shop_id=1&status=60"
+				},
+				"next": {
+					"href": "http:\/\/api-order-madian-dev.mamaqunaer.com\/v1\/refund\/list?per-page=8&page=2&shop_id=1&status=60"
+				},
+				"last": {
+					"href": "http:\/\/api-order-madian-dev.mamaqunaer.com\/v1\/refund\/list?per-page=8&page=2&shop_id=1&status=60"
+				}
+			},
+			"page": {
+				"totalCount": 10,
+				"pageCount": 2,
+				"currentPage": 1,
+				"perPage": 8
+			}
+		},
+		"code": 200,
+		"message": "OK",
+		"success": true
 	}
+
 }
