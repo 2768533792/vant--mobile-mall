@@ -19,7 +19,7 @@
 		<van-panel 
 			v-for="(el, i) in items"
 			class="order_list--panel"
-			:key="el.id"
+			:key="i"
 			:title="'订单编号: ' + el.id"
 			:status="getStatusText(el.status)"
 		>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-	import { REFUND_LIST, REFUND_CANCEL } from '@/api/order';
+	import { REFUND_LIST } from '@/api/order';
 	
 	import { Tab, Tabs, Panel, Card } from 'vant';
 	import IsEmpty from "@/vue/components/is-empty/";

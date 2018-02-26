@@ -65,7 +65,7 @@
 </template>
 
 <script>
-	import { ELE_COUPON_LIST, ORDER_DELETE, ORDER_CANCEL } from '@/api/order';
+	import { ELE_COUPON_LIST } from '@/api/order';
 	
 	import { Tab, Tabs, Panel, Card } from 'vant';
 	import IsEmpty from "@/vue/components/is-empty/";
@@ -160,23 +160,16 @@
 			},
 			delOrder(i){
 				this.$dialog.confirm({message: "确定删除订单?"}).then(() => {
-					const id = this.items[i].id;
-					return this.$reqDel(`${ORDER_DELETE}/${id}`)
-				}).then(res => {
 					this.items.splice(i, 1);
 					this.$toast('已删除');
 				})
 			},
 			async cancelOrder(i){
 				const id = this.items[i].id;
-				const confirm = await this.$dialog.confirm({message: "确定要取消该订单吗?"});
-				const res = await this.$reqPut(`${ORDER_CANCEL}/${id}`);
-				if(this.activeIndex == 0){
-					this.items[i].status = 60;
-				}else{
+				this.$dialog.confirm({message: "确定要取消该订单吗?"}).then(() => {
 					this.items.splice(i, 1);
-				}
-				this.$toast("已取消该订单");
+					this.$toast("已取消该订单");
+				}).catch(() => {})
 			},
 			toPay(id){
 				this.$router.push({ name: "payment", params: { order_id: id } })
