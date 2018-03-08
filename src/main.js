@@ -6,6 +6,12 @@ import Vuelidation from '@/vue/plugins/vuelidation';
 import valid from '@/vue/mixin/valid';
 import VueCountdown from '@/vue/plugins/vue-countdown';
 //import FastClick from 'fastclick';
+
+//babel-polyfill
+import "core-js/es6/array";
+import "core-js/es6/object";
+import 'core-js/es6/promise'
+
 import {
 	Waterfall,
 	Lazyload,
