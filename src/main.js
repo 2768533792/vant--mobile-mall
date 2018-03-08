@@ -8,10 +8,11 @@ import VueCountdown from '@/vue/plugins/vue-countdown';
 //import FastClick from 'fastclick';
 
 //babel-polyfill
-import "core-js/es6/array";
-import "core-js/es6/object";
-import 'core-js/es6/promise';
-import 'core-js/es7/';
+import 'babel-polyfill'
+//import "core-js/es6/array";
+//import "core-js/es6/object";
+//import 'core-js/es6/promise';
+//import 'core-js/es7/';
 
 import {
 	Waterfall,
