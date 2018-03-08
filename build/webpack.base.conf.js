@@ -28,6 +28,10 @@ module.exports = {
     },
     symlinks: false
   },
+  externals: {
+	  vue: 'Vue',
+	  'vue-router': 'VueRouter'
+  },
 //	plugins: [
 //    new webpack.DllReferencePlugin({
 //      context: path.resolve(__dirname, '..'),
