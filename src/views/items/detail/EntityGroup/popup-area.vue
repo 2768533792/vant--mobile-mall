@@ -1,7 +1,5 @@
 <template>
-	<van-popup v-model="isShow" position="bottom">
-		<van-area :areaList="areaList" @confirm="areaConfirm" @cancel="areaCanccel" />
-	</van-popup>
+	<van-area v-once :areaList="areaList" @confirm="areaConfirm" @cancel="areaCanccel" />
 </template>
 
 
@@ -11,43 +9,22 @@
 	export default {
 		name: 'popup-area',
 		
-		model: {
-			prop: 'areaPopup',
-			event: 'change'
-		},
-		
-		props: {
-			areaPopup: {
-				type: Boolean,
-				default: false
-			}
-		},
 		data(){
 			return {
 				areaList,
-				isShow: false,
 			}	
-		},
-		
-		watch: {
-			areaPopup(val){
-				this.isShow = val;	
-			},
-			isShow(val){
-				this.$emit('change', val);
-			}
 		},
 		
 		methods: {
 			areaCanccel() {
-				this.isShow = false;
+				this.$emit('cancel');
 			},
 			areaConfirm(areaData) {
 				if(areaData.every(area => area.code != -1)){
-					this.isShow = false;
 					this.$emit('confirm', this.analyArea(areaData));
+					this.$emit('cancel');
 				}else{
-					this.$toast({message: "请选择完整地区", duration: 1500});
+					this.$toast("请选择完整地区");
 				}
 			},
 			analyArea(areaData) {

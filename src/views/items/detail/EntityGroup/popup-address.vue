@@ -1,23 +1,21 @@
 <template>
-	<van-popup v-model="isShow" position="bottom">
-		<div class="popup_wrap address_wrap">
-			<van-icon name="clear" class="cancel_popup" @click.native="isShow = false"></van-icon>
-			<div class="popup_header">配送至</div>
-			<div class="popup_content">
-				<van-loading v-if="!address_list" class="address_popup_load" type="circle" color="black" />
-				<div v-for="li in address_list" @click="listChoose(li)">
-					<van-tag plain type="danger" style="margin-right: 5px;" v-if="li.isDefault">默认</van-tag>
-					{{li.area_name + li.address}}
-					<van-icon name="success" class="address_active" v-show="addressVal.id == li.id"></van-icon>
-				</div>
-			</div>
-			<div class="popup_footer">
-				<van-cell-group>
-					<van-cell is-link title="其他区域" @click.native="areaChoose"></van-cell>
-				</van-cell-group>
+	<div class="popup_wrap address_wrap">
+		<van-icon name="clear" class="cancel_popup" @click.native="$parent.value = false"></van-icon>
+		<div class="popup_header">配送至</div>
+		<div class="popup_content">
+			<van-loading v-if="!address_list" class="address_popup_load" type="circle" color="black" />
+			<div v-for="li in address_list" @click="listChoose(li)">
+				<van-tag plain type="danger" style="margin-right: 5px;" v-if="li.isDefault">默认</van-tag>
+				{{li.area_name + li.address}}
+				<van-icon name="success" class="address_active" v-show="addressVal.id == li.id"></van-icon>
 			</div>
 		</div>
-	</van-popup>
+		<div class="popup_footer">
+			<van-cell-group>
+				<van-cell is-link title="其他区域" @click.native="areaChoose"></van-cell>
+			</van-cell-group>
+		</div>
+	</div>
 </template>
 
 
@@ -27,16 +25,8 @@
 	export default {
 		name: 'popup-address',
 		
-		model: {
-			prop: 'addressPopup',
-			event: 'change'
-		},
-		
 		props: {
-			addressPopup: {
-				type: Boolean,
-				default: false
-			},
+			isShow: Boolean,
 			addressVal: {
 				type: Object,
 				default: () => ({})
@@ -47,27 +37,23 @@
 			return {
 				address_list: null,
 				address_default: {},
-				isShow: false
 			}
 		},
 		
 		watch: {
-			addressPopup(val){
-				this.isShow = val;
-			},
 			isShow(val){
-				this.$emit('change', val);
 				val && !this.address_list && this.getAddress();
 			},
 		},
 		
 		created() {
+			//一进页面先拿默认地址，等打开弹窗在请求地址列表
 			this.getAddressDefault();
 		},
 		
 		methods: {
 			getAddress() {
-				localStorage.getItem('Authorization') &&
+				if(localStorage.getItem('Authorization')){
 					this.$reqGet(ADDRESS, {}, {
 						hideLoading: true
 					}).then(res => {
@@ -77,6 +63,9 @@
 						})
 						this.address_list = data;
 					})
+				}else{
+					this.address_list = [];
+				}
 			},
 			getAddressDefault() {
 				localStorage.getItem('Authorization') &&
@@ -84,14 +73,8 @@
 						hideLoading: true
 					}).then(res => {
 						const data = res.data.data;
-						data && this.$emit("confirm", {
-							id: data.id,
-							area_name: data.area_name,
-							district: data.district,
-							city: data.city,
-							province: data.province,
-						});
-						this.address_default = data;
+						this.$emit("confirm", data);
+						this.address_default = data || {};
 					})
 			},
 			listChoose(li){
@@ -99,7 +82,6 @@
 				this.isShow = false;
 			},
 			areaChoose() {
-				this.isShow = false;
 				this.$emit("area-click", true)
 			},
 		}

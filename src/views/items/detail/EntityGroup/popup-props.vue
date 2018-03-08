@@ -1,20 +1,18 @@
 <template>
-	<van-popup v-model="isShow"  position="bottom">
-		<div class="popup_wrap">
-			<van-icon name="clear" class="cancel_popup" @click.native="isShow = false"></van-icon>
-			<div class="popup_header">商品属性</div>
-			<div class="popup_content">
-				<van-cell-group>
-					<van-cell v-for="(str, i) in propsStr" :key="i">
-						<van-row>
-							<van-col span="8">{{str[0]}}</van-col>
-							<van-col span="16">{{str[1]}}</van-col>
-						</van-row>
-					</van-cell>
-				</van-cell-group>
-			</div>
+	<div class="popup_wrap">
+		<van-icon name="clear" class="cancel_popup" @click.native="$parent.value = false"></van-icon>
+		<div class="popup_header">商品属性</div>
+		<div class="popup_content">
+			<van-cell-group>
+				<van-cell v-for="(str, i) in propsStr" :key="i">
+					<van-row>
+						<van-col span="8">{{str[0]}}</van-col>
+						<van-col span="16">{{str[1]}}</van-col>
+					</van-row>
+				</van-cell>
+			</van-cell-group>
 		</div>
-	</van-popup>
+	</div>
 </template>
 
 <script>
@@ -22,35 +20,11 @@
 	export default {
 		name: "popup-props",
 		
-		model: {
-			prop: 'showPopup',
-			event: 'change'
-		},
-		
 		props: {
-			showPopup:{
-				type: Boolean,
-				default: false,
-			},
 			propsStr: {
 				type: Array,
 				default: () => ([])
 			}
-		},
-		
-		data(){
-			return {
-				isShow: this.showPopup
-			}	
-		},
-		
-		watch: {
-			showPopup(val){
-				this.isShow = val;
-			},
-			isShow(val){
-				this.$emit("change", val);
-			}		
 		},
 		
  		components: {

@@ -18,25 +18,32 @@
 			@buy-clicked="buyGoods"
 		/>
 		
-		<popup-props 
-			v-model="propsPopup"
-			:propsStr="props_str"/>
+		<van-popup v-model="propsPopup"  position="bottom">
+			<popup-props :propsStr="props_str"></popup-props> 	
+		</van-popup>
 		
-		<popup-area 
-			v-model="areaPopup"
-			@confirm="emitAddressVal"/>
+		<van-popup v-model="areaPopup" position="bottom">
+			<popup-area 
+				v-if="areaPopup"
+				@confirm="emitAddressVal"
+				@cancel="areaPopup = false"
+			/>
+		</van-popup>
 			
-		<popup-address 
-			v-model="addressPopup"
-			:addressVal="addressVal"
-			@confirm="emitAddressVal"
-			@area-click="areaPopup = true"/>
+		<van-popup v-model="addressPopup" position="bottom">
+			<popup-address 
+				:is-show="addressPopup"
+				:addressVal="addressVal"
+				@confirm="emitAddressVal"
+				@area-click="areaClick"
+			/>
+		</van-popup>
 	</div>
 </template>
 
 <script>
+	const popupArea = () => import ( /* webpackChunkName: "popup-area" */ './popup-area')
 	import popupAddress from './popup-address'
-	import popupArea from './popup-area'
 	import popupProps from './popup-props'
 	import actionMixin from "../mix";
 	import { ADDRESS, ADDRESS_DEFAULT } from '@/api/user';
@@ -93,6 +100,10 @@
 		},
 		
 		methods: {
+			areaClick(){
+				this.areaPopup = true;
+				this.addressPopup = false;
+			},
 			emitAddressVal(data){
 				this.$emit("update:addressVal", data);
 			},
@@ -176,8 +187,8 @@
 		},
 
 		components: {
+			popupArea,
 			[popupAddress.name]: popupAddress,
-			[popupArea.name]: popupArea,
 			[popupProps.name]: popupProps,
 		}
 	}
