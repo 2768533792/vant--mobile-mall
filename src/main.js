@@ -26,7 +26,8 @@ import {
 	Icon,
 	Button,
 	Popup,
-	loading
+	loading,
+	List
 } from 'vant';
 
 import axios from '@/vue/plugins/axios';
@@ -62,6 +63,7 @@ Vue.use(Icon);
 Vue.use(Button);
 Vue.use(Popup);
 Vue.use(loading);
+Vue.use(List);
 Toast.setDefaultOptions({
 	duration: 1500
 })
