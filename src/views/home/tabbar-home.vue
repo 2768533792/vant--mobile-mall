@@ -1,9 +1,5 @@
 <template>
-	<div class="tab_home"
-		style="height: 100%; overflow: scroll;"
-		v-waterfall-lower="loadMore"
-		waterfall-disabled="disabled"
-		waterfall-offset="50">
+	<div class="tab_home">
 		<sign-board 
 			v-once
 			v-if="shopInfo"
@@ -18,41 +14,39 @@
 			:address="shopInfo.address"
 			:notice="shopInfo.notice"
 			:mobile="shopInfo.contact"/>
-		
-		<item-group
-			v-for="( group, key ) in itemGroup"
-			v-if="group"
-			:key="key"
-			class="interval_bot"
-			:setting="group.setting"
+			
+		<van-list
+		  	v-model="loading"
+		  	class="scroll-load"
+		  	:finished="finished"
+				:immediate-check="false"
+	  		:offset="100"
+		  	@load="loadMore"
 		>
-			<component 
-				v-for="(item, i) in group.items"
-				:goods="item"
-				:key="item.id"
-				:is="getStyle(group.setting.style)"
-				@click="toGoods(item)">
-				<div slot="mask" v-if="lootAll(item)">
-					<img src="../../assets/images/not_enough.png" alt="已抢光">
-				</div>
-				<div slot="leftTopIcon" v-if="item.as_status < 2"> 
-					<img :src="mxStatus(item.as_status)" alt="秒杀">
-				</div>
-			</component>
-		</item-group>
-		
-		<van-loading 
-			type="gradient-circle" 
-			color="black" 
-			class="items_loading" 
-			v-show="isLoading"
-		/>
-		
-		<van-popup 
-			v-model="noMore" 
-			position="top" 
-			:overlay="false"
-		>没有更多了</van-popup>
+			<item-group
+				v-for="( group, key ) in itemGroup"
+				v-if="group"
+				:key="key"
+				class="interval_bot"
+				:setting="group.setting"
+			>
+				<component 
+					v-for="(item, i) in group.items"
+					:goods="item"
+					:key="item.id"
+					:is="getStyle(group.setting.style)"
+					@click="toGoods(item)"
+				>
+					<div slot="mask" v-if="lootAll(item)">
+						<img src="../../assets/images/not_enough.png" alt="已抢光">
+					</div>
+					<div slot="leftTopIcon" v-if="item.as_status < 2"> 
+						<img :src="mxStatus(item.as_status)" alt="秒杀">
+					</div>
+					
+				</component>
+			</item-group>
+		</van-list>
 		
 	</div>
 </template>
@@ -69,7 +63,7 @@
 	import ItemCardVert from '@/vue/components/item-card-vert/';
 	import ItemCardHori from '@/vue/components/item-card-hori/';
 	
-	import loadMore from '@/vue/mixin/load-more';
+	import loadMore from '@/vue/mixin/list-load-more';
 	import scrollFixed from '@/vue/mixin/scroll-fixed';
 	
 	export default {
@@ -209,6 +203,7 @@
 
 <style lang="scss" scoped>
 	@import "../../assets/scss/var";
+	
 	.interval_bot{
 		margin-bottom: 10px;
 	}

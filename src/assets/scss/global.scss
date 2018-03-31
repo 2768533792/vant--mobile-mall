@@ -3,6 +3,7 @@
 
 @import "./common";
 @import "./vant-theme";
+
 a {
 	color: #000
 }
@@ -12,31 +13,24 @@ input:-webkit-autofill {
 }
 
 html {
-	overflow-x: hidden;
-	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	height: 100%;
 }
 
 body {
 	overflow-x: hidden;
 	max-width: 700px;
-	height: 100%;
 	margin: 0 auto;
 	font-size: 14px;
 }
 
 .view-router {
 	background-color: $bg-color;
-	min-height: 100%;
+	min-height: 100vh;
 	padding-bottom: 50px;
 	box-sizing: border-box;
 }
 
-#app {
-	height: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
+.scroll-load{
 }
 
 //商品详情页
