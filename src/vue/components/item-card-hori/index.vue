@@ -22,15 +22,16 @@
 				
 				<div class="item_card_info_desc">{{goods.sell_point}}</div>
 				
-				<div class="item_card_price">
-					<span>{{goods.sales_price | yuan}}</span>
-					<span class="marketPrice" v-if="goods.market_price">{{goods.market_price | yuan}}</span>
+				<div class="item_card_footer">
+					<div class="footer_price">
+						<span>{{goods.sales_price | yuan}}</span>
+						<span class="marketPrice" v-if="goods.market_price">{{goods.market_price | yuan}}</span>
+					</div>
+
+					<div class="footer_desc" v-if="$slots.footer">
+						<slot name="footer"></slot>
+					</div>
 				</div>
-				
-				<div class="item_cart_footer" v-if="$slots.footer">
-					<slot name="footer"></slot>
-				</div>
-				
 			</div>
 		</div>
 	</div>
@@ -129,29 +130,33 @@
 			max-height: 100%;
 			max-width: 100%;
 		}
-
-		.item_card_price{
+		
+		.item_card_footer{
 			position: absolute;
 			bottom: 0;
-			z-index: 1;
-			color: $red;
-			width: 50%;
-		}
-		.item_card_price .marketPrice{
-			color: $font-color-gray;
-			font-size: 12px;
-			text-decoration: line-through;
-			margin-left: 10px;
-		}
-		
-		.item_cart_footer{
-			position: absolute;
+			left: 0;
 			right: 0;
-			bottom: 0;
-			z-index: 1;
-			width: 50%;
+			display: flex;
+			
+			.footer_price{
+				color: $red;
+				margin-right: 5px;
+			}
+			
+			.footer_price .marketPrice{
+				color: $font-color-gray;
+				font-size: 12px;
+				text-decoration: line-through;
+				margin-left: 5px;
+			}
+			
+			.footer_desc{
+				flex: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
 		}
-		
 	}
 	
 
