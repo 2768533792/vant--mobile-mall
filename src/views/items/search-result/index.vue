@@ -1,8 +1,5 @@
 <template>
-	<div class="item_list"
-		v-waterfall-lower="loadMore"
-		waterfall-disabled="disabled"
-		waterfall-offset="100">
+	<div class="item_list">
 		
 		<form action="/search" class="fixedTop">
 			<van-search 
@@ -12,29 +9,24 @@
 			showAction />
 		</form>
 		
-		<item-group>
-			<item-card-hori
-				v-for="(item, i) in items" 
-				:key="item.id"
-				:goods="item"
-				@click="itemClick(i)"
-			 />
-		</item-group>
-		
-		<van-loading 
-			type="gradient-circle" 
-			color="black" 
-			class="items_loading" 
-			v-show="isLoading"
-		/>
-		
+		<van-list
+		  	v-model="loading"
+		  	:finished="finished"
+			:immediate-check="false"
+	  		:offset="100"
+		  	@load="loadMore"
+		>
+			<item-group>
+				<item-card-hori
+					v-for="(item, i) in items" 
+					:key="item.id"
+					:goods="item"
+					@click="itemClick(i)"
+				/>
+			</item-group>
+		</van-list>
+
 		<is-empty v-model="isEmpty">抱歉,没有找到符合条件商品</is-empty>
-		
-		<van-popup 
-			v-model="noMore" 
-			position="bottom" 
-			:overlay="false"
-		>没有更多了</van-popup>
 		
 		<transition name="fade">
 			<van-icon name="arrowupcircle" class="backTop" @click.native="backTop" v-show="showArrow"></van-icon>

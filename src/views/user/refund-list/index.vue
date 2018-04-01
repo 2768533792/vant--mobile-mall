@@ -1,8 +1,5 @@
 <template>
-	<div class="order_list"		
-		v-waterfall-lower="loadMore"
-		waterfall-disabled="disabled"
-		waterfall-offset="100">
+	<div class="order_list">
 		<van-tabs
 			sticky
 			:active="activeIndex"
@@ -15,47 +12,41 @@
 				:key="tab.type">
 			</van-tab>
 		</van-tabs>
-		
-		<van-panel 
-			v-for="(el, i) in items"
-			class="order_list--panel"
-			:key="i"
-			:title="'订单编号: ' + el.id"
-			:status="getStatusText(el.status)"
+
+		<van-list
+		  	v-model="loading"
+		  	:finished="finished"
+			:immediate-check="false"
+	  		:offset="100"
+		  	@load="loadMore"
 		>
-			<div>
-				<van-card
-					class="order_list--van-card"
-					:key="i"
-					:title="el.orderItem.item_name"
-					:desc="el.orderItem.sku_props_str"
-					:num="el.orderItem.quantity"
-					:price="(el.orderItem.price / 100).toFixed(2)"
-					:thumb="el.orderItem.pic_url"
-				/>
-				<div class="order_list--total">
-					合计: {{el.refund_fee | yuan}}（含运费{{el.refund_post_fee | yuan}}）
+			<van-panel 
+				v-for="(el, i) in items"
+				class="order_list--panel"
+				:key="i"
+				:title="'订单编号: ' + el.id"
+				:status="getStatusText(el.status)"
+			>
+				<div>
+					<van-card
+						class="order_list--van-card"
+						:key="i"
+						:title="el.orderItem.item_name"
+						:desc="el.orderItem.sku_props_str"
+						:num="el.orderItem.quantity"
+						:price="(el.orderItem.price / 100).toFixed(2)"
+						:thumb="el.orderItem.pic_url"
+					/>
+					<div class="order_list--total">
+						合计: {{el.refund_fee | yuan}}（含运费{{el.refund_post_fee | yuan}}）
+					</div>
 				</div>
-			</div>
-			<div slot="footer" style="text-align: right;">
-				<van-button size="small" @click="refund_handle(i)">{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
-			</div>
-		</van-panel>
-		
-		<van-loading 
-			type="gradient-circle" 
-			color="black" 
-			class="items_loading" 
-			v-show="isLoading"
-		/>
-		
+				<div slot="footer" style="text-align: right;">
+					<van-button size="small" @click="refund_handle(i)">{{ el.status == 10 ? "撤销申请" : "查看详情"}}</van-button>
+				</div>
+			</van-panel>
+		</van-list>
 		<is-empty v-model="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
-		
-		<van-popup
-			v-model="noMore" 
-			position="bottom" 
-			:overlay="false"
-		>没有更多了</van-popup>
 	</div>
 </template>
 
@@ -164,10 +155,7 @@
 <style lang="scss" scoped>
 	.order_list {
 		padding-bottom: 0;
-		height: 100%;
-		box-sizing: border-box;
-		overflow-x: hidden;
-		overflow-y: scroll;
+
 		&--footer_btn {
 			text-align: right;
 		}

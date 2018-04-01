@@ -1,8 +1,5 @@
 <template>
-	<div class="order_list"		
-		v-waterfall-lower="loadMore"
-		waterfall-disabled="disabled"
-		waterfall-offset="100">
+	<div class="order_list">
 		<van-tabs
 			sticky
 			:active="activeIndex"
@@ -16,51 +13,47 @@
 			</van-tab>
 		</van-tabs>
 		
-		<van-panel 
-			v-for="(el, i) in items"
-			class="order_list--panel"
-			:key="el.id"
-			:title="'订单编号: ' + el.id"
-			:status="getStatusText(el.status)"
+		<van-list
+		  	v-model="loading"
+		  	:finished="finished"
+			:immediate-check="false"
+	  		:offset="100"
+		  	@load="loadMore"
 		>
-			<div>
-				<van-card
-					v-for="(goods, i) in el.serviceItems"
-					class="order_list--van-card"
-					:key="i"
-					:title="goods.item_name"
-					:desc="goods.sku_props_str"
-					:num="goods.quantity"
-					:price="(goods.price / 100).toFixed(2)"
-					:thumb="goods.pic_url"
-				/>
-				<div class="order_list--total">
-					合计: {{el.total_fee | yuan}}（含运费{{el.post_fee | yuan}}）
+			<van-panel 
+				v-for="(el, i) in items"
+				class="order_list--panel"
+				:key="el.id"
+				:title="'订单编号: ' + el.id"
+				:status="getStatusText(el.status)"
+			>
+				<div>
+					<van-card
+						v-for="(goods, i) in el.serviceItems"
+						class="order_list--van-card"
+						:key="i"
+						:title="goods.item_name"
+						:desc="goods.sku_props_str"
+						:num="goods.quantity"
+						:price="(goods.price / 100).toFixed(2)"
+						:thumb="goods.pic_url"
+					/>
+					<div class="order_list--total">
+						合计: {{el.total_fee | yuan}}（含运费{{el.post_fee | yuan}}）
+					</div>
 				</div>
-			</div>
-			<component 
-				slot="footer" 
-				:is="'status' + el.status" 
-				@delete-order="delOrder(i)"
-				@pay="toPay(el.id)"
-				@cancel="cancelOrder(i)"
-			/>
-		</van-panel>
-		
-		<van-loading 
-			type="gradient-circle" 
-			color="black" 
-			class="items_loading" 
-			v-show="isLoading"
-		/>
-		
+				<component 
+					slot="footer" 
+					:is="'status' + el.status" 
+					@delete-order="delOrder(i)"
+					@pay="toPay(el.id)"
+					@cancel="cancelOrder(i)"
+				/>
+			</van-panel>
+		</van-list>
+
 		<is-empty v-model="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
 		
-		<van-popup 
-			v-model="noMore" 
-			position="bottom" 
-			:overlay="false"
-		>没有更多了</van-popup>
 	</div>
 </template>
 

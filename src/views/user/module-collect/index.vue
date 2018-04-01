@@ -1,8 +1,5 @@
 <template>
-	<div class="user_collect"
-		v-waterfall-lower="loadMore"
-		waterfall-disabled="disabled"
-		waterfall-offset="100">
+	<div class="user_collect">
 		
 		<form action="/search" class="fixedTop">
 			<van-search 
@@ -11,37 +8,32 @@
 			 />
 		</form>
 		
-		<item-group>
-			<item-card-hori
-				v-for="(item, i) in items" 
-				:style="{backgroundColor: !item.goods_status && '#fcfcfc'}"
-				:key="i"
-				:goods="item"
-				@click="itemClick(i)"
-			 >
-			  <van-icon 
-				  name="lajitong" 
-				  slot="footer" 
-				  @click.stop="cancelCollect($event, i)" 
-				  style="float: right;"
-			  />
-			</item-card-hori>
-		</item-group>
-		
-		<van-loading 
-			type="gradient-circle" 
-			color="black" 
-			class="items_loading" 
-			v-show="isLoading"
-		/>
-		
+		<van-list
+		  	v-model="loading"
+		  	:finished="finished"
+			:immediate-check="false"
+	  		:offset="100"
+		  	@load="loadMore"
+		>
+			<item-group>
+				<item-card-hori
+					v-for="(item, i) in items" 
+					:style="{backgroundColor: !item.goods_status && '#fcfcfc'}"
+					:key="i"
+					:goods="item"
+					@click="itemClick(i)"
+				>
+				<van-icon 
+					name="lajitong" 
+					slot="footer" 
+					@click.stop="cancelCollect($event, i)" 
+					style="float: right;"
+				/>
+				</item-card-hori>
+			</item-group>
+		</van-list>
+
 		<is-empty v-model="isEmpty">没有商品收藏</is-empty>
-		
-		<van-popup 
-			v-model="noMore" 
-			position="bottom" 
-			:overlay="false"
-		>没有更多了</van-popup>
 		
 		<div class="clear_invalid" v-if="items.length" @click="clearInvalid">
 			<van-icon name="lajitong"/>
@@ -59,7 +51,7 @@
 	import IsEmpty from "@/vue/components/is-empty/";
 	import { Search } from 'vant';
 	
-	import loadMore from '@/vue/mixin/load-more';
+	import loadMore from '@/vue/mixin/list-load-more';
 	import scrollFixed from '@/vue/mixin/scroll-fixed';
 
 	export default {

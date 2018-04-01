@@ -1,8 +1,5 @@
 <template>
-	<div class="item_list"
-		v-waterfall-lower="loadMore"
-		waterfall-disabled="disabled"
-		waterfall-offset="100">
+	<div class="item_list">
 		
 		<form action="/search">
 			<van-search 
@@ -38,33 +35,32 @@
 			</ul>
 		</van-popup>
 		
-		
-		<item-group>
-			<item-card-hori
-				v-for="(item, i) in items" 
-				:key="i"
-				:goods="item"
-				@click="itemClick(item.id)"
-			 />
-		</item-group>
-		
-		<van-loading 
-			type="gradient-circle" 
-			color="black" 
-			class="items_loading" 
-			v-show="isLoading"
-		/>
-		
+		<van-list
+		  	v-model="loading"
+		  	:finished="finished"
+			:immediate-check="false"
+	  		:offset="100"
+		  	@load="loadMore"
+		>
+			<item-group>
+				<item-card-hori
+					v-for="(item, i) in items" 
+					:key="i"
+					:goods="item"
+					@click="itemClick(item.id)"
+				 />
+			</item-group>
+		</van-list>
+
 		<is-empty v-model="isEmpty">抱歉,没有找到符合条件商品</is-empty>
 		
-		<van-popup 
-			v-model="noMore" 
-			position="bottom" 
-			:overlay="false"
-		>没有更多了</van-popup>
-		
 		<transition name="fade">
-			<van-icon name="arrowupcircle" class="backTop" @click.native="backTop" v-show="showArrow"></van-icon>
+			<van-icon 
+				name="arrowupcircle" 
+				class="backTop" 
+				@click.native="backTop" 
+				v-show="showArrow"
+			/>
 		</transition>
 	</div>
 </template>
@@ -75,9 +71,9 @@
 	import ItemGroup from "@/vue/components/item-group/";
 	import IsEmpty from "@/vue/components/is-empty/";
 	import ItemCardHori from '@/vue/components/item-card-hori/';
-	import { Search, Loading, Tab, Tabs } from 'vant';
+	import { Search, Tab, Tabs } from 'vant';
 	
-	import loadMore from '@/vue/mixin/load-more';
+	import loadMore from '@/vue/mixin/list-load-more';
 	import scrollFixed from '@/vue/mixin/scroll-fixed';
 	
 	export default {
@@ -126,18 +122,25 @@
 				showArrow: false
 			}
 		},
+
+		watch: {
+			itemClass(val){
+				this.scrollTop = 0;
+				this.resetInit();
+			}
+		},
 		
 		activated(){
 			this.searchVal = this.keyword;
-			this.resetInit();
-			this.eventListen();
+			this.eventListen(true);
 		},
 		
 		deactivated(){
-			document.getElementById('app').removeEventListener("scroll", this.scrollShowArrow);
+			this.eventListen(false);
 		},
 		
 		created(){
+			this.resetInit();
 			this.scrollShowArrow = this.$util.throttle(this.scrollShowArrow, 100);
 		},
 		
@@ -159,11 +162,15 @@
 					return page
 				})
 			},
-			eventListen(){
-				document.getElementById('app').addEventListener("scroll", this.scrollShowArrow);
+			eventListen(isBind = true){
+				if(isBind){
+					this.$el.addEventListener("scroll", this.scrollShowArrow)
+				}else{
+					this.$el.removeEventListener("scroll", this.scrollShowArrow)
+				}
 			},
 			scrollShowArrow(){
-				this.showArrow = document.getElementById('app').scrollTop > 120;
+				this.showArrow = this.$el.scrollTop > 120;
 			},
 			handleTabClick(index){
 				if(index === 3){
@@ -188,7 +195,7 @@
 				}
 			},
 			backTop(){
-				document.getElementById('app').scrollTop = 0;
+				this.$el.scrollTop = 0;
 			},
 			itemClick(id){
 				this.$router.push({name: "detail", params: {itemId: id}})
@@ -201,7 +208,6 @@
 			[Tab.name]: Tab,
 			[Tabs.name]: Tabs,
 			[Search.name]: Search,
-			[Loading.name]: Loading,
 			[IsEmpty.name]: IsEmpty,
 		}
 	}
@@ -222,11 +228,7 @@
 	
 	
 	.item_list{
-		height: 100%;
 		background-color: #fff;
-		box-sizing: border-box;
-		overflow-x: hidden;
-		overflow-y: scroll;
 		padding-bottom: 0;
 	}
 	.fixedTop{
