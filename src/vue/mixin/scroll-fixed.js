@@ -8,6 +8,7 @@ export default {
 	
 	mounted(){
 		const vm = this;
+		
 		vm.$el.addEventListener('scroll', vm.$util.debounce(function() {
 			vm.scrollTop = vm.$el.scrollTop;
 		}, 50))

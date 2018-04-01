@@ -41,5 +41,7 @@ export default [{
 				keepAlive: true	
 			},
 			component: ItemList,
-			props: (route) => (route.query)
+			props: (route) => ({
+				itemClass: +route.query.itemClass
+			})
 	}]
