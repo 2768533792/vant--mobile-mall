@@ -1,5 +1,5 @@
 <template>
-	<div class="is_empty" v-show="value">
+	<div class="is_empty">
 		<div>
 			<img src="../../../assets/images/is_empty.png" alt="无商品" width="20%">
 		</div>
@@ -12,7 +12,6 @@
 <script>
 	export default {
 		name: "is-empty",
-		props: {value: Boolean}
 	}
 </script>
 

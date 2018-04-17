@@ -11,7 +11,7 @@
 			:list="list"
 		></class-tree>
 		
-		<is-empty v-model="isEmpty">抱歉,店主还未上架商品</is-empty>
+		<is-empty v-if="isEmpty">抱歉,店主还未上架商品</is-empty>
 	</div>
 </template>
 

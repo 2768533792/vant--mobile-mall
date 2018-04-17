@@ -52,7 +52,7 @@
 			</van-panel>
 		</van-list>
 		
-		<is-empty v-model="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
+		<is-empty v-if="isEmpty">抱歉,没有找到符合条件的订单</is-empty>
 
 	</div>
 </template>
