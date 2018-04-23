@@ -24,10 +24,11 @@ export default {
 		},
 		isFinished() {
 			this.finished = true;
+			this.loading = false;
 		},
 		async loadMore() {
 			console.log("loadmore");
-			var vm = this;
+			const vm = this;
 			if (vm.pages.pageCount < vm.pages.currPage) {
 				vm.$toast({
 					message: "没有更多了~",
