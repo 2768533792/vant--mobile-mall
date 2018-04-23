@@ -2,6 +2,9 @@
 
 > 使用有赞移动端 Vue 组件库 — [Vant](https://www.youzanyun.com/zanui/vant#/zh-CN/component/intro)
 
+## 线上地址（手机扫码查看）
+![gif](https://github.com/qianzhaoy/qianzhaoy.github.io/blob/master/static/img/%E7%A0%81%E5%BA%97%E7%BA%BF%E4%B8%8A.png)
+
 ## 预览Gif图(gif加载较慢，请稍后。。。)
 
 ![gif](https://github.com/qianzhaoy/qianzhaoy.github.io/blob/master/per-view/1.gif) </br></br>
