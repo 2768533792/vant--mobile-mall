@@ -26,7 +26,7 @@
 			</item-group>
 		</van-list>
 
-		<is-empty v-model="isEmpty">抱歉,没有找到符合条件商品</is-empty>
+		<is-empty v-if="isEmpty">抱歉,没有找到符合条件商品</is-empty>
 		
 		<transition name="fade">
 			<van-icon name="arrowupcircle" class="backTop" @click.native="backTop" v-show="showArrow"></van-icon>

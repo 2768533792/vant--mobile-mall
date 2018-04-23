@@ -33,7 +33,7 @@
 			</item-group>
 		</van-list>
 
-		<is-empty v-model="isEmpty">没有商品收藏</is-empty>
+		<is-empty v-if="isEmpty">没有商品收藏</is-empty>
 		
 		<div class="clear_invalid" v-if="items.length" @click="clearInvalid">
 			<van-icon name="lajitong"/>
