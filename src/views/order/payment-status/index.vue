@@ -50,7 +50,7 @@
 
 
 <style lang="scss" scopd>
-	@import "../../../assets/scss/var";
+	
 	
 	.payment_status {
 		padding-top: 30px;

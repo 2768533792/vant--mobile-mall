@@ -48,7 +48,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.item_card_H_wrap {
 		padding: 15px 10px;
 	}

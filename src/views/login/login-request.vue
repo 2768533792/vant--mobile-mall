@@ -123,7 +123,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../assets/scss/var";
+	
 	@import "../../assets/scss/mixin";
 	.register {
 		padding-top: 40px;

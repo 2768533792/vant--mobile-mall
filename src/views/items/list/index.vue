@@ -214,7 +214,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	
 	.fade-enter,
 	.fade-leave-to{

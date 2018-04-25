@@ -116,7 +116,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.clear_invalid {
 		width: 120px;
 		color: $font-color-gray;

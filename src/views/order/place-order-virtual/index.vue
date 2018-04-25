@@ -81,7 +81,7 @@
 </script>
 
 <style scoped lang="scss">
-	@import "../../../assets/scss/var";
+	
 	.panel_content {
 		position: relative;
 		padding: 10px 15px;

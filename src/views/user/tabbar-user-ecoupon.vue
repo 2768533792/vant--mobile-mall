@@ -43,7 +43,7 @@
 
 
 <style scoped lang="scss">
-	@import "../../assets/scss/var";
+	
 	@import "../../assets/scss/mixin";
 	.ecoupon_status{
 		background-color: #fff;

@@ -34,7 +34,7 @@
 
 
 <style lang="scss">
-	@import "../../../assets/scss/var";
+	
 	.daodian {
 		.van-checkbox .van-icon-success{
 			height: 16px;

@@ -92,7 +92,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.user_information{
 		.user_avatar_upload{
 			position: relative;

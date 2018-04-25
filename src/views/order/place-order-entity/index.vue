@@ -43,7 +43,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.place_order_entity{
 		padding-bottom: 70px;
 	}

@@ -80,7 +80,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 
 	.item_search{
 		background-color: #fff;

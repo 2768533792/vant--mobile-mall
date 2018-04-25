@@ -91,7 +91,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.items_group{
 		background-color: #fff;
 	}

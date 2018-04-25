@@ -23,7 +23,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	@import "../../../assets/scss/mixin";
 	.contact_popup{
 		white-space: nowrap;

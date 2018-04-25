@@ -175,7 +175,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../assets/scss/var";
+	
 	@import "../../assets/scss/mixin";
 	
 	.tab-cart{

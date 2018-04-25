@@ -42,7 +42,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../assets/scss/var";
+	
 	.signboard{
 		position: relative;
 		min-height: 250px;

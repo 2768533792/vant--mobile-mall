@@ -17,7 +17,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.is_empty{
 		text-align: center;
 		color: $font-color-gray;

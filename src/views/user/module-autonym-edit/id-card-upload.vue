@@ -61,7 +61,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.id_card_upload{
 		margin: 10px 0 30px 0;
 		background-color: #fff;

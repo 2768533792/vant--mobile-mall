@@ -31,7 +31,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	.item_card_V_wrap {
 		display: inline-block;
 		flex: 1;

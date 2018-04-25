@@ -50,7 +50,7 @@
 
 
 <style scoped lang="scss">
-	@import "../../assets/scss/var";
+	
 	@import "../../assets/scss/mixin";
 	.order_status{
 		background-color: #fff;

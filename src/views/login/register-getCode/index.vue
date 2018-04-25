@@ -42,7 +42,7 @@
 </script>
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	div.register_view{
 		background-color: #fff;
 		padding-top: 30px;

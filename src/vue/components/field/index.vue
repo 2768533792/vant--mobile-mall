@@ -53,7 +53,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../../assets/scss/var";
+	
 	
 	.md_field {
 		position: relative;

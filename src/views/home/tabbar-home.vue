@@ -202,7 +202,7 @@
 
 
 <style lang="scss" scoped>
-	@import "../../assets/scss/var";
+	
 	
 	.interval_bot{
 		margin-bottom: 10px;
